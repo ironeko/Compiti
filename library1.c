@@ -1,3 +1,5 @@
+/*******************************************************************************************************************/
+
 //------->declaraction
 
 //1 (print array)
@@ -16,6 +18,15 @@ double min(double a[], int n);
 void vsetzero(int a[], int n);
 void vsetzero(float a[], int n);
 void vsetzero(double a[], int n);
+//5 (array mean)
+int vmean(int a[], int n);
+float vmean(float a[], int n);
+double vmean(double a[], int n);
+
+
+
+
+/*******************************************************************************************************************/
 
 //------->codes
 
@@ -103,4 +114,27 @@ void vsetzero(float a[], int n){// array and array dimention
 void vsetzero(double a[], int n){// array and array dimention
   for(int i=0;i<n;i++)
     a[i]=0;
+}
+
+
+//5
+int vmean(int v[], int n) {// array and array dimention
+	int a=1;
+	for (int i=0;i<n;i++)
+		a+=v[i];
+	return a/n;
+}
+
+float vmean(float v[], int n) {// array and array dimention
+	float a=1;
+	for (int i=0;i<n;i++)
+		a+=v[i];
+	return a/n;
+}
+
+double vmean(double v[], int n) {// array and array dimention
+	double a=1;
+	for (int i=0;i<n;i++)
+		a+=v[i];
+	return a/n;
 }
