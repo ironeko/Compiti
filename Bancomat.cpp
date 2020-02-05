@@ -7,7 +7,7 @@
 #include <windows.h>
 #include <time.h>
 
-int d=5,v=5,c=5; //variabili globali soldi d=10 v=20 c=50
+int d=5,v=5,c=5; //variabili globali soldi  banconote d=10 v=20 c=50
 
 void prelievo();
 void inserimento();
