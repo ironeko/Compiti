@@ -149,10 +149,12 @@ int vincere(int tb[][C]){
   // righe
   for (int i=0;i<R;i++){
     for (int j=0;j<C;j++){
-      if (tb[i][j]==1 && tb[i][j+1]==1 && tb[i][j+2]==1 && tb[i][j+3]==1){
+      if (tb[i][j]==1 && tb[i][j+1]==1 && tb[i][j+2]==1 && tb[i][j+3]==1 && (i+3)<R){
+        printf("1\n");
         return 1;
       }
-      else if (tb[i][j]==-1 && tb[i][j+1]==-1 && tb[i][j+2]==-1 && tb[i][j+3]==-1){
+      else if (tb[i][j]==-1 && tb[i][j+1]==-1 && tb[i][j+2]==-1 && tb[i][j+3]==-1 && (i+3)<R){
+        printf("2\n");
         return 1;
       }
     }
@@ -160,10 +162,10 @@ int vincere(int tb[][C]){
   //colonne
   for (int i=0;i<C;i++){
     for (int j=0;j<R;j++){
-      if (tb[i][j]==1 && tb[i+1][j]==1 && tb[i+2][j]==1 && tb[i+3][j]==1){
+      if (tb[i][j]==1 && tb[i+1][j]==1 && tb[i+2][j]==1 && tb[i+3][j]==1 && (i+3)<R){
         return 1;
       }
-      else if (tb[i][j]==-1 && tb[i+1][j]==-1 && tb[i+2][j]==-1 && tb[i+3][j]==-1){
+      else if (tb[i][j]==-1 && tb[i+1][j]==-1 && tb[i+2][j]==-1 && tb[i+3][j]==-1 && (i+3)<R){
         return 1;
       }
     }
@@ -171,10 +173,10 @@ int vincere(int tb[][C]){
   //diagonale 1
   for (int i=0;i<R;i++){
     for (int j=0;j<C;j++){
-      if (tb[i][j]==1 && tb[i+1][j+1]==1 && tb[i+2][j+2]==1 && tb[i+3][j+3]==1){
+      if (tb[i][j]==1 && tb[i+1][j+1]==1 && tb[i+2][j+2]==1 && tb[i+3][j+3]==1 && (j+3)<R){
         return 1;
       }
-      else if (tb[i][j]==-1 && tb[i+1][j+1]==-1 && tb[i+2][j+2]==-1 && tb[i+3][j+3]==-1){
+      else if (tb[i][j]==-1 && tb[i+1][j+1]==-1 && tb[i+2][j+2]==-1 && tb[i+3][j+3]==-1 && (i+3)<R && (j+3)<R){
         return 1;
       }
     }
@@ -182,10 +184,10 @@ int vincere(int tb[][C]){
   //diagonale 2
   for (int i=0;i<R;i++){
     for (int j=0;j<C;j++){
-      if (tb[i][j]==1 && tb[i+1][j-1]==1 && tb[i+2][j-2]==1 && tb[i+3][j-3]==1){
+      if (tb[i][j]==1 && tb[i+1][j-1]==1 && tb[i+2][j-2]==1 && tb[i+3][j-3]==1 && (i+3)<R && (j-3)>0){
         return 1;
       }
-      else if (tb[i][j]==-1 && tb[i+1][j-1]==-1 && tb[i+2][j-2]==-1 && tb[i+3][j-3]==-1){
+      else if (tb[i][j]==-1 && tb[i+1][j-1]==-1 && tb[i+2][j-2]==-1 && tb[i+3][j-3]==-1 && (i+3)<R && (j-3)>0){
         return 1;
       }
     }
