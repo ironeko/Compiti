@@ -75,16 +75,42 @@ int main(){
   		insert [1][posizione]++;
   	}
 
-    // inserimento tabella
-    for (int i=R-1;i>=0;i--){
-      if (table[i][in]==0){
-        if (turno==0){
+    // inserimento tabella con animazione (si consiglia di modificare il tempo dello Sleep [ms] per una migliore esperienza)
+    if (turno==0){
+      for (int i=0;i<R;i++){
+        if (table[i][in]==0){
           table[i][in]++;
-          i=-1;
-        }
-        else {
+          system("cls");
+          stampa(table);
+          Sleep(10);
           table[i][in]--;
-          i=-1;
+        }
+        if (table[i][in]!=0){
+          table[i-1][in]++;
+          i+=R+1;
+        }
+        else if (i==R-1){
+          table[i][in]++;
+          i+=R+1;
+        }
+      }
+    }
+    else if (turno==1){
+      for (int i=0;i<R;i++){
+        if (table[i][in]==0){
+          table[i][in]--;
+          system("cls");
+          stampa(table);
+          Sleep(10);
+          table[i][in]++;
+        }
+        if (table[i][in]!=0){
+          table[i-1][in]--;
+          i+=R+1;
+        }
+        else if (i==R-1){
+          table[i][in]--;
+          i+=R+1;
         }
       }
     }
