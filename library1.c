@@ -1,5 +1,3 @@
-/*******************************************************************************************************************/
-
 //------->declaraction
 
 //1 (print array)
@@ -18,35 +16,33 @@ double min(double a[], int n);
 void vsetzero(int a[], int n);
 void vsetzero(float a[], int n);
 void vsetzero(double a[], int n);
-//5 (array mean)
-int vmean(int a[], int n);
-float vmean(float a[], int n);
-double vmean(double a[], int n);
-
-
-
-
-/*******************************************************************************************************************/
+//5 (Selection Sort)
+void SelectionSort(int a[], int dim);
+void SelectionSort(float a[], int dim);
+void SelectionSort(double a[], double dim);
 
 //------->codes
 
 //1
-void vprint(int v[], int l){ //array and long array
+void vprint(int v[], int l){ //array and array dimention
 	for (int i=0;i<l;i++){
 		printf("%d\t",v[i]);
 	}
+	printf("\n");
 }
 
-void vprint(float v[], int l){//array and long array
+void vprint(float v[], int l){//array and array dimention
 	for (int i=0;i<l;i++){
 		printf("%f\t",v[i]);
 	}
+	printf("\n");
 }
 
-void vprint(double v[], int l){//array and long array
+void vprint(double v[], int l){//array and array dimention
 	for (int i=0;i<l;i++){
 		printf("%f\t",v[i]);
 	}
+	printf("\n");
 }
 
 //2
@@ -118,23 +114,45 @@ void vsetzero(double a[], int n){// array and array dimention
 
 
 //5
-int vmean(int v[], int n) {// array and array dimention
-	int a=1;
-	for (int i=0;i<n;i++)
-		a+=v[i];
-	return a/n;
+void SelectionSort(int a[], int dim){
+	int i;
+	int j;
+	int val;
+	for(i=1;i<dim;i++){
+		val = a[i];
+		j=i-1;
+		for(j;j>=0 && a[j]>val; j--){
+			a[j+1]=a[j];
+		}
+			a[j+1] = val;
+	}
 }
 
-float vmean(float v[], int n) {// array and array dimention
-	float a=1;
-	for (int i=0;i<n;i++)
-		a+=v[i];
-	return a/n;
+void SelectionSort(float a[], int dim){
+	int i;
+	int j;
+	int val;
+	for(i=1;i<dim;i++){
+		val = a[i];
+		j=i-1;
+		for(j;j>=0 && a[j]>val; j--){
+			a[j+1]=a[j];
+		}
+			a[j+1] = val;
+	}
 }
 
-double vmean(double v[], int n) {// array and array dimention
-	double a=1;
-	for (int i=0;i<n;i++)
-		a+=v[i];
-	return a/n;
+void SelectionSort(double a[], double dim){
+	int i;
+	int j;
+	int val;
+	for(i=1;i<dim;i++){
+		val = a[i];
+		j=i-1;
+		for(j;j>=0 && a[j]>val; j--){
+			a[j+1]=a[j];
+		}
+			a[j+1] = val;
+	}
 }
+
