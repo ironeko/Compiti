@@ -117,14 +117,7 @@ int main(){
     //vincere
     v=vincere(table);
     //cambio turno
-    if (v==0){
-      if (turno==0){
-        turno++;
-      }
-      else {
-        turno=false;
-      }
-    }
+    turno = turno==1?0:1;
 
   }while (v==0);
   system("cls");
