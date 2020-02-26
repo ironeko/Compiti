@@ -115,10 +115,8 @@ void vsetzero(double a[], int n){// array and array dimention
 
 //5
 void SelectionSort(int a[], int dim){
-	int i;
-	int j;
-	int val;
-	for(i=1;i<dim;i++){
+	int j,val;
+	for(int i=1;i<dim;i++){
 		val = a[i];
 		j=i-1;
 		for(j;j>=0 && a[j]>val; j--){
@@ -129,10 +127,8 @@ void SelectionSort(int a[], int dim){
 }
 
 void SelectionSort(float a[], int dim){
-	int i;
-	int j;
-	int val;
-	for(i=1;i<dim;i++){
+	int j,val;
+	for(int i=1;i<dim;i++){
 		val = a[i];
 		j=i-1;
 		for(j;j>=0 && a[j]>val; j--){
@@ -143,10 +139,8 @@ void SelectionSort(float a[], int dim){
 }
 
 void SelectionSort(double a[], double dim){
-	int i;
-	int j;
-	int val;
-	for(i=1;i<dim;i++){
+	int j,val;
+	for(int i=1;i<dim;i++){
 		val = a[i];
 		j=i-1;
 		for(j;j>=0 && a[j]>val; j--){
@@ -155,4 +149,3 @@ void SelectionSort(double a[], double dim){
 			a[j+1] = val;
 	}
 }
-
