@@ -125,6 +125,30 @@ void ordina (int a[], int dim){
 }
 
 void ordinaNome (char V [][30], char serie[], int punti[],char s, int n){
+  int b=0;
+  for (int i=0;i>n;i++)
+    if (serie[i]==s)
+      b++;
+  char sq[b][30],temp[30];
+
+  for (int i=0;i>n;i++)
+    if (serie[i]==s)
+      strcpy(sq[i],V[i]);
+
+  for (int i=0;i>n;i++)
+    printf("%s\n",sq[i] );
+  for(int i=0;i<=b;i++)
+     for(int j=i+1;j<=b;j++){
+        if(strcmp(sq[i],sq[j])>0){
+           strcpy(temp,sq[i]);
+           strcpy(sq[i],sq[j]);
+           strcpy(sq[j],temp);
+        }
+     }
+  printf("Order of Sorted Strings:");
+  for(int i=0;i<=b;i++)
+     printf("%s\n",sq[i] );
+
 	// effettua l'ordinamento delle squadre della serie S in ordine alfabetico
 }
 
