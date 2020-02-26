@@ -40,6 +40,7 @@ int main(){
 	  printf ("Inserisci 0 per terminare:\n");
 	  printf ("Inserisci la tua scelta :\n");
 	  scanf ("%d",&k);
+    fflush(stdin);
 	  switch (k){
 		  case 1:
         visualizzaSerie(nomeS, serie,'A',N );
@@ -52,9 +53,7 @@ int main(){
 	    	break;
 	    case 4:
 		     printf ("Inserisci la serie che vuoi visualizzare :\n");
-         fflush(stdin);
 			   scanf("%c",&s);
-         fflush(stdin);
 			   visualizzaClassifica (nomeS, serie ,punti,s,N);
          break;
 	    case 5:
@@ -148,6 +147,20 @@ void informazioniSquadra(char V[][30], char S[], int P[], int n ){
 }
 
 void campione (char V[][30], char S[], int P[], char s, int n ){
+  int a,b;
+  for (int i=0;i<n;i++){
+    if (S[i]==s){
+      a=P[i];
+    }
+  }
+  for (int i=0;i<n;i++){
+    if (S[i]==s && P[i]>a){
+      a=P[i];
+      b=i;
+    }
+  }
+  printf("%s punti %d\n",V[b],P[b] );
+
 	// ricerca tra le squadre della serie richiesta quella con punteggio massimo
 	// senza creare nessun vettore di appoggio (SENZA NESSUNA COPIA, ne dei nomi delle squadre ne dei punteggi)
 }
