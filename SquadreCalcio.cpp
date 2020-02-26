@@ -20,10 +20,10 @@ void ordinaNome (char[][30], char[], int[], char, int);
 int main(){
 
   char nomeS[MaxN][30];	//vettore di stringhe con i momi delle squadre
-  char serie[MaxN];		//cettore di char che contiene la serie dove gioca la squadra
+  char serie[MaxN];	 	//cettore di char che contiene la serie dove gioca la squadra
   int punti[MaxN];		//vettore di interi col punteggio della sqradra
   char s;
-  int N=6;
+  int N=6,k;
   printf ("\nInserisci il numero totale di squadre serie A + serie B:\n");
   scanf ("%d",&N);
   N=6;
@@ -45,24 +45,24 @@ int main(){
 			visualizzaSerie(nomeS, serie ,punti,'A',N );
 	    	break;
 	    case 2:
-			???????????????
+			//???????????????
 	    	break;
 	    case 3:
 			informazioniSquadra(nomeS, serie ,punti,N);
 	    	break;
 	    case 4:
 			printf ("Inserisci la serie che vuoi visualizzare :\n");
-			scanf("%c",&s)
+			scanf("%c",&s);
 			visualizzaClassifica (nomeS, serie ,punti,s,N);
 	    	break;
 	    case 5:
 	    	printf ("Inserisci la serie che vuoi visualizzare :\n");
-			scanf("%c",&s)
+			scanf("%c",&s);
 			campione(nomeS, serie ,punti,s,N);
 	    	break;
 	    case 6:
 			printf ("Inserisci la serie che vuoi visualizzare :\n");
-			scanf("%c",&s)
+			scanf("%c",&s);
 			ordinaNome(nomeS,serie,punti,s,N);
 	      break;
 	    case 0:
@@ -73,7 +73,7 @@ int main(){
 
 	} while(k!=0 );
 
-*/
+
   return (0);
  // system("PAUSE");
 }
