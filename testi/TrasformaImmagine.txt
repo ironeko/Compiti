@@ -1,0 +1,53 @@
+Le immagini bitmap sono rappresentate mediante una matrice di punti (pixel) ciascuno dei quali è descritto da una tripletta di colori RGB, che contiene i valori di intensità, da 0 a 255, dei tre colori fondamentali rosso, verde e blu. Si considerino i dati bitmap organizzati come segue:
+i Dati sono organizzati in una matrice (R*C=N)*3 dove ogni riga contiene le triplette che rappresentano i pixel (un pixel per riga) a partire dalla prima riga, prima colonna (pixel in alto a sinistra nell’immagine), e procedendo con tutte le colonne della riga. Ogni pixel è rappresentato dai tre numeri nella sequenza: rosso, verde, blu.
+
+Ad esempio, il vettore seguente rappresenta un’immagine 4 × 3 (4 Righe e 3 Colonne = 12 = N ) con un punto in alto a sinistra bianco (i tre colori sono al massimo dell’intensità) e il resto della prima riga nero (tutti zeri); poi una riga grigia, e due righe con punti rossi (255, 0, 0), verdi (0, 255, 0), blu (0, 0, 255), azzurri (0, 255, 255), gialli (255, 255, 0) e magenta (255, 0, 255).
+
+	4 x 3
+ 	255	 255	255
+ 	0 	0	0
+ 	0 	0 	0
+ 	127 	127 	127
+  	127 	127 	127
+	127 	127 	127
+	255 	0 	0
+	0 	255 	0
+	0 	255 	255
+	0 	0 	255
+ 	255 	255 	0
+	255 	0 	255
+
+Si scriva un programma che trasformi un’immagine bitmap a colori in un’altra in bianco e nero (Tonalità di grigio), cioè in cui i tre colori di ogni tripletta hanno uguale intensità, pari alla media delle intensità dei colori del pixel originale. Inoltre, il programma deve aggiungere alla figura un contorno costituito da una linea bianca (spessa un pixel) e compattarlo in un vettore monodimensionale
+Il Vettore sotto è il risultato del programma applicato ai dati sopra.
+
+	6 x 3			-->		diventa
+	255 	255 	255	255
+	255 	255 	255	255
+	255	 255 	255	255
+	255 	255 	255	255
+	255 	255 	255	255
+	255 	255 	255	255
+	255 	255 	255	255
+	0 	0 	0	0
+	0	 0 	0	0
+	255 	255 	255	255
+	255 	255 	255	255
+	127 	127 	127	127
+	127 	127 	127	127
+	127 	127 	127	127
+	255 	255 	255	255
+	255 	255 	255	255
+	85 	85 	85	85
+	85 	85 	85	85
+	170 	170 	170	170
+	255 	255 	255	255
+	255 	255 	255	255
+	85 	85 	85	85
+	170 	170 	170	170
+	170 	170 	170	170
+	255 	255 	255	255
+	255 	255 	255	255
+	255 	255 	255	255
+	255 	255 	255	255
+	255 	255 	255	255
+	255 	255 	255	255
