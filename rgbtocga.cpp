@@ -1,11 +1,8 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include <conio.h>
-#include <math.h>
-#include <stdbool.h>
 #include <windows.h>
 #include <time.h>
-/*
+/* ricontrollare i colori, possibili light a 255-0
 Full CGA 16-color palette
 0	black #000000	RGB=0 0 0-----------3*
 1	blue #0000AA	RGB=0 0 170-----------5*
@@ -14,19 +11,35 @@ Full CGA 16-color palette
 4	red #AA0000	RGB=170 0 0-----------5*
 5	magenta #AA00AA	RGB=170 0 170-----------7*
 6	brown #AA5500	RGB=170 85 0-----------6*
-7	light gray #AAAAAA	RGB=170 170 170-----------9
+7	light gray #AAAAAA	RGB=170 170 170-----------9*
 8	dark gray #555555 RGB=85 85 85-----------6*
-9	light blue #5555FF RGB=85 85 255-----------8//////////
-10	light green #55FF55 rgb(85, 255, 85)-----------8////////
-11	light cyan #55FFFF rgb(85, 255, 255)-----------10
-12  light red #FF5555 rgb(255, 85, 85)-----------8/////////
-13	light magenta #FF55FF rgb(255, 85, 255)-----------10
-14	yellow #FFFF55 rgb(255, 255, 85)-----------10
+9	light blue #5555FF RGB=85 85 255-----------8*
+10	light green #55FF55 rgb(85, 255, 85)-----------8*
+11	light cyan #55FFFF rgb(85, 255, 255)-----------10*
+12  light red #FF5555 rgb(255, 85, 85)-----------8*
+13	light magenta #FF55FF rgb(255, 85, 255)-----------10*
+14	yellow #FFFF55 rgb(255, 255, 85)-----------10*
 15	white #FFFFFF rgb(255, 255, 255)-----------12*
 */
 
+int rgb(int r,int g,int b);
+int strange(int r,int g,int b){
+  if (r<128 && r>0)
+    r--;
+  else if (r<255)
+    r++;
+  if (g<128 && g>0)
+    g--;
+  else if (g<255)
+    g++;
+  if (b<128 && b>0)
+    b--;
+  else if (b<255)
+    b++;
+  printf("%d %d %d\n",r,g,b );
+  return (rgb(r,g,b));
 
-int strange(int r,int g,int b){return 0;}
+}
 
 int five(int r,int g,int b){
   if (r==0){
@@ -46,7 +59,7 @@ int six(int r,int g,int b){
   if (r==170 && g==85 && b==0){
     return 6;
   }
-  else if (r+g+b==255){
+  else if (r==85 && g==85 && b==85){
     return 8;
   }
   return(strange (r,g,b));
@@ -61,22 +74,38 @@ int seven(int r,int g,int b){
   return(strange (r,g,b));
 }
 int eight(int r,int g,int b){
-  if (r==0){
-    if (g==0){
-      return 1;
+  if (r==85){
+    if (g==85){
+      return 9;
     }
-    else if (b==0){
-      return 2;
+    else if (b==85){
+      return 10;
     }
   }
-  else if (g+b==0){
-    return 4;
+  else if (g==85 && b==85){
+    return 12;
   }
-
   return(strange (r,g,b));
 }
-int nine(int r,int g,int b){return(strange (r,g,b));}
-int ten(int r,int g,int b){return(strange (r,g,b));}
+int nine(int r,int g,int b){
+  if (r==170 && g==170 && b==170)
+    return 7;
+  return(strange (r,g,b));
+}
+int ten(int r,int g,int b){
+  if (r==255){
+    if (g==255){
+      return 14;
+    }
+    else if (b==255){
+      return 13;
+    }
+  }
+  else if (g+b==510){
+    return 11;
+  }
+  return(strange (r,g,b));
+}
 
 
 int rgb(int r,int g,int b){
@@ -114,6 +143,7 @@ int rgb(int r,int g,int b){
       c=3;
     else
       c=4;
+    printf("swich %d\n",a+d+c );
     switch (a+d+c){
       case 3:return 0;break;
       case 5: return(five(r,g,b));
@@ -123,6 +153,7 @@ int rgb(int r,int g,int b){
       case 9: return(nine(r,g,b));
       case 10: return(ten(r,g,b));
       case 12:return 15;
+      default:printf("sos\n" ); return(strange (r,g,b));
     }
   }
   return 0;
@@ -133,10 +164,10 @@ int main (){
   srand((unsigned)time(NULL));
   HANDLE hConsole;
   hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-  SetConsoleTextAttribute(hConsole, 11);
+  SetConsoleTextAttribute(hConsole, 4);
   printf("ciao\n");
   int r=rand ()%255,g=rand ()%255,b=rand ()%255;
-  r=0;g=170;b=170;
+  r=255;g=85;b=85;
   printf("%d %d %d\n",r,g,b);
   a=rgb(r,g,b);
   printf ("%d",a);
