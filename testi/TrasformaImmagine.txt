@@ -26,49 +26,33 @@ massimo dell’intensità) e il resto della prima riga nero (tutti zeri); poi un
  	255 	255 	0
 	255 	0 	255
 
-Si scriva un programma che trasformi un’immagine bitmap a colori in un’altra in bianco e nero (Tonalità di grigio), cioè in cui i tre colori di
-ogni tripletta hanno uguale intensità, pari alla media delle intensità dei colori del pixel originale.
-Inoltre, il programma deve aggiungere alla figura un contorno costituito da una linea bianca (spessa un pixel)
-e compattarlo in un vettore monodimensionale
-Il Vettore sotto è il risultato del programma applicato ai dati sopra.
+	Si scriva un programma che trasformi un’immagine bitmap a colori in un’altra in bianco e nero (Tonalità di
+	grigio), cioè in cui i tre colori di ogni tripletta hanno uguale intensità, pari alla media delle intensità dei colori del pixel originale.
+	Inoltre, il programma deve aggiungere alla figura un contorno costituito da una linea bianca (spessa un pixel) e compattarlo in un vettore
+	monodimensionale
+	Il Vettore sotto è il risultato del programma applicato ai dati sopra.
 
-	6 x 3			-->		diventa
-	255 	255 	255	255
-	255 	255 	255	255
-	255	  255 	255	255
+	6 x 3							-->				diventa
+	255 	255 	255							255
+	255 	255 	255							255
+	255	  255 	255							255
 
-	255 	255 	255	255
-	255 	255 	255	255
-	255 	255 	255	255
+	255 	255 	255							255
+	0 		0 		0								0
+	0	 		0 		0								0
 
-	255 	255 	255	255
-	0 		0 		0		0
-	0	 		0 		0		0
+	127 	127 	127							127
+	127 	127 	127							127
+	127 	127 	127							127
 
-	255 	255 	255	255
-	255 	255 	255	255
-	127 	127 	127	127
+	255 	0 	  0								85
+	0 	 255 	  0								85
+	0 	 255  	255							170
 
-	127 	127 	127	127
-	127 	127 	127	127
-	255 	255 	255	255
+	0 	 0    	255							85
+ 	255  255 	  0								170
+	255 	0 	  255							170
 
-	255 	255 	255	255
-	85 		85 		85	85
-	85 		85 		85	85
-
-	170 	170 	170	170
-	255 	255 	255	255
-	255 	255 	255	255
-
-	85 		85 		85	85
-	170 	170 	170	170
-	170 	170 	170	170
-	
-	255 	255 	255	255
-	255 	255 	255	255
-	255 	255 	255	255
-
-	255 	255 	255	255
-	255 	255 	255	255
-	255 	255 	255	255
+	255 	255 	255							255
+	255 	255 	255							255
+	255 	255 	255							255
