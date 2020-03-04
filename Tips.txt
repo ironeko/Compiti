@@ -83,6 +83,7 @@ DEC-OCT-HEX-BIN-Symbol-HTML Number-HTML Name-Description
 29	035	1D	00011101	GS	&#029;	 	Group Separator
 30	036	1E	00011110	RS	&#030;	 	Record Separator
 31	037	1F	00011111	US	&#031;	 	Unit Separator
+
 32	040	20	00100000	 	&#32;	 	Space
 33	041	21	00100001	!	&#33;	 	Exclamation mark
 34	042	22	00100010	"	&#34;	&quot;	Double quotes (or speech marks)
