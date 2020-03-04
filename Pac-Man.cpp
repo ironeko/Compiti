@@ -81,7 +81,7 @@ void print (int map [L][C]){
   printf("\tpoint = %d",point );
   printf("\n\n\t" );
 }
-
+/*
 void input (int map [L][C],char a){
   switch (a) { // control of imput
     case 'w':
@@ -135,10 +135,40 @@ void input (int map [L][C],char a){
     };break;// if isn't wasd write error
     default: printf("Error\n" );system("pause");
   }
+}*/
+
+
+void input (int map [L][C],char a){
+  for (int i=0;i<L;i++){
+    for (int j=0;j<C;j++){
+      if (map [i][j]==1){
+        switch (a){
+          case 'w':if (map [i-1][j]==2)
+            point++;
+            map [i][j]=0;
+            map [i-1][j]=1;j+=C+1;
+            i+=L+1;break;
+          case 'a':if (map [i][j-1]==2)
+            point++;
+          map [i][j]=0;
+          map [i][j-1]=1;j+=C+1;
+          i+=L+1;break;
+          case 's':if (map [i+1][j]==2)
+            point++;
+          map [i][j]=0;
+          map [i+1][j]=1;j+=C+1;
+          i+=L+1;break;
+          case 'd':if (map [i][j+1]==2)
+            point++;
+          map [i][j]=0;
+          map [i][j+1]=1;j+=C+1;
+          i+=L+1;break;
+          default: printf("Error\n" );system("pause"); //at the moment
+        }
+      }
+    }
+  }
 }
-
-
-
 
 
 
