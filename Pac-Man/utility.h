@@ -1,7 +1,6 @@
-#include <stdio.h>
-#include <windows.h>
 
-int main(){
+
+void utility(){
   HANDLE hConsole;
   hConsole = GetStdHandle(STD_OUTPUT_HANDLE);// color cange
   int c;
@@ -30,5 +29,6 @@ int main(){
     }
 
     fclose(file);
-}
+    SetConsoleTextAttribute(hConsole, 7);
+  }
 }
