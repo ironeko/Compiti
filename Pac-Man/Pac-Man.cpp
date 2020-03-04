@@ -1,13 +1,17 @@
 /*
 vorrei iniziare con una versione semplificata soltanto con un rettangolo e la possibilità di muoversi,
 in seguito voglio aggiungere:
+-mappa  (idea: creare un .txt in cui vene salvata la mappa con caratteri speciali es. w=muro, p=payer; creare una funzione per essa e trasportarla nell'array)
 -ostacoli e bordi
 -nemici
--mappa  (idea: creare un .txt in cui vene salvata la mappa con caratteri speciali es. w=muro, p=payer; creare una funzione per essa e trasportarla nell'array)
 -multithreading
 -inserimento senza invio
 -musica
 -possibilità di mangiare i nemici
+
+W=wall
+P=player
+B=point
 
 fatto:
 - pezzi da mangiare
@@ -45,7 +49,7 @@ int main (){
 
   while (L!=0) {
     print (map);
-    //fflush(stdin);
+    fflush(stdin);
     scanf("%c",&a);
     input (map,a);
     system ("cls");
