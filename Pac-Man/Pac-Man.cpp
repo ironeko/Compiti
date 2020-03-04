@@ -1,6 +1,5 @@
 /*
-vorrei iniziare con una versione semplificata soltanto con un rettangolo e la possibilità di muoversi,
-in seguito voglio aggiungere:
+Aggiungere:
 -multithreading
 -inserimento senza invio
 -nemici
@@ -21,8 +20,8 @@ T=teleport
 3=wall
 4=teleport
 
-
-fatto:
+Fatto:
+-iniziare con una versione semplificata soltanto con un rettangolo e la possibilità di muoversi
 - pezzi da mangiare
 -mappa  (idea: creare un .txt in cui vene salvata la mappa con caratteri speciali es. w=muro, p=payer; creare una funzione per essa e trasportarla nell'array)
 -ostacoli e bordi
