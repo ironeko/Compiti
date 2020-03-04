@@ -3,7 +3,7 @@ vorrei iniziare con una versione semplificata soltanto con un rettangolo e la po
 in seguito voglio aggiungere:
 -ostacoli e bordi
 -nemici
--mappa
+-mappa  (idea: creare un .txt in cui vene salvata la mappa con caratteri speciali es. w=muro, p=payer; creare una funzione per essa e trasportarla nell'array)
 -multithreading
 -inserimento senza invio
 -musica
