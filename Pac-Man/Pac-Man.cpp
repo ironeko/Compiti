@@ -1,10 +1,9 @@
 /*
 vorrei iniziare con una versione semplificata soltanto con un rettangolo e la possibilità di muoversi,
 in seguito voglio aggiungere:
--ostacoli e bordi
--nemici
 -multithreading
 -inserimento senza invio
+-nemici
 -musica
 -possibilità di mangiare i nemici
 
@@ -12,17 +11,21 @@ W=wall
 P=player
 B=point
 E=enemy
+V=void
+T=teleport
 
 -1=enemy
 0=empty
 1=player
 2=point
 3=wall
+4=teleport
 
 
 fatto:
 - pezzi da mangiare
 -mappa  (idea: creare un .txt in cui vene salvata la mappa con caratteri speciali es. w=muro, p=payer; creare una funzione per essa e trasportarla nell'array)
+-ostacoli e bordi
 */
 
 #include <stdlib.h>
@@ -33,7 +36,7 @@ fatto:
 #include <windows.h>
 #include "utility.h"
 
-const int L=21,C=18;
+const int L=21,C=20;
 int point=0;
 
 void print (int [L][C]);
@@ -82,6 +85,10 @@ void print (int map [L][C]){
         SetConsoleTextAttribute(hConsole, 9);// color cange
         printf("[]" );
       }
+      else if (map [i][j]==4){// if is 3 write wall
+        SetConsoleTextAttribute(hConsole, 0);// color cange
+        printf("{}" );
+      }
       SetConsoleTextAttribute(hConsole, 9);// color cange
     }
     printf("\n");
@@ -92,12 +99,12 @@ void print (int map [L][C]){
 }
 
 void input (int map [L][C],char a){ //control of the input
-  for (int i=0;i<C;i++){
-    for (int j=0;j<L;j++){
+  for (int i=0;i<L;i++){
+    for (int j=0;j<C;j++){
       if (map [i][j]==1){
         switch (a){
           case 'w':
-            if (i-1>=0 && i-1!=3){
+            if (i-1>=0 && map [i-1][j]!=3){
               if (map [i-1][j]==2)
                 point++;
               map [i][j]=0;
@@ -106,7 +113,11 @@ void input (int map [L][C],char a){ //control of the input
             }
             break;
           case 'a':
-            if (j-1>=0 && j-1!=3){
+            if (map [i][j-1]==4){
+              map [i][j]=0;
+              map [i][C-3]=1;
+            }
+            else if (j-1>=0 && map [i][j-1]!=3){
               if (map [i][j-1]==2)
                 point++;
               map [i][j]=0;
@@ -115,7 +126,7 @@ void input (int map [L][C],char a){ //control of the input
             }
             break;
           case 's':
-            if (i+1<L && i+1!=3){
+            if (i+1<L && map [i+1][j]!=3){
               if (map [i+1][j]==2)
                 point++;
               map [i][j]=0;
@@ -124,7 +135,11 @@ void input (int map [L][C],char a){ //control of the input
             }
             break;
           case 'd':
-            if (j+1<L && j+1!=3){
+            if (map [i][j+1]==4){
+              map [i][j]=0;
+              map [i][1]=1;
+            }
+            else if (j+1<L && map [i][j+1]!=3){
               if (map [i][j+1]==2)
                 point++;
               map [i][j]=0;
@@ -132,7 +147,6 @@ void input (int map [L][C],char a){ //control of the input
               i+=L+1;
             }
             break;
-          default: printf("Error\n" );system("pause"); //at the moment
         }
       }
     }
@@ -155,7 +169,13 @@ void load (int map[L][C]){
         map[i][j]=2;
       }
       else if (c=='E'){
+        map[i][j]=-1;
+      }
+      else if (c=='V'){
         map[i][j]=0;
+      }
+      else if (c=='T'){
+        map[i][j]=4;
       }
       if (j==C-1){
         j=0;
