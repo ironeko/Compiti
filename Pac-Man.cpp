@@ -55,35 +55,35 @@ int main (){
 
 void print (int map [L][C]){
   HANDLE hConsole;
-  hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-  SetConsoleTextAttribute(hConsole, 9);
+  hConsole = GetStdHandle(STD_OUTPUT_HANDLE);// color cange
+  SetConsoleTextAttribute(hConsole, 9);// color cange
   printf("\n\t-------------------------------------\n" );
   for (int i=0;i<L;i++){
     printf("\t" );
     for (int j=0;j<C;j++){
       printf("|");
-      SetConsoleTextAttribute(hConsole, 14);
+      SetConsoleTextAttribute(hConsole, 14);// color cange
       if (map [i][j]==0){ // if is empty don't write
         printf("   " );
       }
       else if (map [i][j]==1){// if is 1 write player
         printf(" @ " );
       }
-      else if (map [i][j]==2){// if is -1 write point
+      else if (map [i][j]==2){// if is 2 write point
         printf(" o " );
       }
-      SetConsoleTextAttribute(hConsole, 9);
+      SetConsoleTextAttribute(hConsole, 9);// color cange
     }
     printf("|");
     printf("\n\t-------------------------------------\n" );
   }
-  SetConsoleTextAttribute(hConsole, 7);
+  SetConsoleTextAttribute(hConsole, 7);// color cange
   printf("\tpoint = %d",point );
   printf("\n\n\t" );
 }
 
 void input (int map [L][C],char a){
-  switch (a) {
+  switch (a) { // control of imput
     case 'w':
       for (int i=0;i<L;i++){
         for (int j=0;j<C;j++){
@@ -132,7 +132,7 @@ void input (int map [L][C],char a){
           i+=L+1;
         }
       }
-    };break;
+    };break;// if isn't wasd write error
     default: printf("Error\n" );system("pause");
   }
 }
