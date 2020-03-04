@@ -34,7 +34,6 @@ fatto:
 #include <math.h>
 #include <stdbool.h>
 #include <windows.h>
-#include "utility.h"
 
 const int L=21,C=20;
 int point=0;
