@@ -1,14 +1,16 @@
 /*
 vorrei iniziare con una versione semplificata soltanto con un rettangolo e la possibilità di muoversi,
 in seguito voglio aggiungere:
-X pezzi da mangiare
--ostacoli
+-ostacoli e bordi
 -nemici
 -mappa
 -multithreading
 -inserimento senza invio
 -musica
 -possibilità di mangiare i nemici
+
+fatto:
+- pezzi da mangiare
 */
 
 
@@ -31,16 +33,16 @@ int main (){
 
   for (int i=0;i<L;i++){ // for now, set to -1
     for (int j=0;j<C;j++){
-      map [i][j]=-1;
+      map [i][j]=2;
     }
   }
 
   map [L/2] [C/2]=1; //Creat the player
 
-  //-1=point
+  //-1=enemy
   //0=empty
   //1=player
-  //2=enemy
+  //2=point
 
   while (L!=0) {
     print (map);
@@ -61,13 +63,13 @@ void print (int map [L][C]){
     for (int j=0;j<C;j++){
       printf("|");
       SetConsoleTextAttribute(hConsole, 14);
-      if (map [i][j]==0){
+      if (map [i][j]==0){ // if is empty don't write
         printf("   " );
       }
-      else if (map [i][j]==1){
+      else if (map [i][j]==1){// if is 1 write player
         printf(" @ " );
       }
-      else if (map [i][j]==-1){
+      else if (map [i][j]==2){// if is -1 write point
         printf(" o " );
       }
       SetConsoleTextAttribute(hConsole, 9);
@@ -86,7 +88,7 @@ void input (int map [L][C],char a){
       for (int i=0;i<L;i++){
         for (int j=0;j<C;j++){
           if (map [i][j]==1){
-            if (map [i-1][j]==-1)
+            if (map [i-1][j]==2)
               point++;
             map [i][j]=0;
             map [i-1][j]=1;
@@ -98,7 +100,7 @@ void input (int map [L][C],char a){
     case 'a':for (int i=0;i<L;i++){
       for (int j=0;j<C;j++){
         if (map [i][j]==1){
-          if (map [i][j-1]==-1)
+          if (map [i][j-1]==2)
             point++;
           map [i][j]=0;
           map [i][j-1]=1;
@@ -110,7 +112,7 @@ void input (int map [L][C],char a){
     case 's':for (int i=0;i<L;i++){
       for (int j=0;j<C;j++){
         if (map [i][j]==1){
-          if (map [i+1][j]==-1)
+          if (map [i+1][j]==2)
             point++;
           map [i][j]=0;
           map [i+1][j]=1;
@@ -122,7 +124,7 @@ void input (int map [L][C],char a){
     case 'd':for (int i=0;i<L;i++){
       for (int j=0;j<C;j++){
         if (map [i][j]==1){
-          if (map [i][j+1]==-1)
+          if (map [i][j+1]==2)
             point++;
           map [i][j]=0;
           map [i][j+1]=1;
