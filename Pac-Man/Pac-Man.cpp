@@ -1,7 +1,6 @@
 /*
 Aggiungere:
 -multithreading
--inserimento senza invio
 -nemici
 -musica
 -possibilità di mangiare i nemici
@@ -25,6 +24,7 @@ Fatto:
 - pezzi da mangiare
 -mappa  (idea: creare un .txt in cui vene salvata la mappa con caratteri speciali es. w=muro, p=payer; creare una funzione per essa e trasportarla nell'array)
 -ostacoli e bordi
+-inserimento senza invio
 */
 
 #include <stdlib.h>
@@ -33,6 +33,7 @@ Fatto:
 #include <math.h>
 #include <stdbool.h>
 #include <windows.h>
+#include <time.h>
 
 const int L=21,C=20;//21x20
 int point=0;
@@ -56,7 +57,7 @@ int main (){
   while (v!=1) {
     print (map);
     fflush(stdin);
-    scanf("%c",&a);
+    a=getche();
     input (map,a);
     system ("cls");
     v=win(map);
