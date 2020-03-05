@@ -34,15 +34,16 @@ Fatto:
 #include <stdbool.h>
 #include <windows.h>
 
-const int L=21,C=20;
+const int L=21,C=20;//21x20
 int point=0;
 
 void print (int [L][C]);
 void input (int [L][C],char);
 void load (int [L][C]);
+int win (int [L][C]);
 
 int main (){
-  int map[L][C]; // the map
+  int map[L][C],v=0; // the map,possibility of win
   char a;       // the choose
 
   for (int i=0;i<L;i++){ // for now, set to 0
@@ -52,13 +53,15 @@ int main (){
   }
   load (map);
 
-  while (L!=0) {
+  while (v!=1) {
     print (map);
     fflush(stdin);
     scanf("%c",&a);
     input (map,a);
     system ("cls");
+    v=win(map);
   }
+  printf("you win\n" );
 }
 
 void print (int map [L][C]){
@@ -175,7 +178,16 @@ void load (int map[L][C]){
   }
 }
 
-
+int win (int map[L][C]){
+  for (int i=0;i<L;i++){
+    for (int j=0;j<C;j++){
+      if (map[i][j]==2){
+        return 0;
+      }
+    }
+  }
+  return 1;
+}
 
 
 
