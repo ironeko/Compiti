@@ -70,22 +70,13 @@ void print (int map [L][C]){
     printf("\t" );
     for (int j=0;j<C;j++){
       SetConsoleTextAttribute(hConsole, 14);// color cange
-      if (map [i][j]==0){ // if is empty don't write
-        printf("  " );
-      }
-      else if (map [i][j]==1){// if is 1 write player
-        printf(" @" );
-      }
-      else if (map [i][j]==2){// if is 2 write point
-        printf(" o" );
-      }
-      else if (map [i][j]==3){// if is 3 write wall
-        SetConsoleTextAttribute(hConsole, 9);// color cange
-        printf("[]" );
-      }
-      else if (map [i][j]==4){// if is 3 write wall
-        SetConsoleTextAttribute(hConsole, 0);// color cange
-        printf("{}" );
+      switch (map [i][j]) {
+        case -1:SetConsoleTextAttribute(hConsole, 9);printf("[]" );break;//enemy for the moment
+        case 0:printf("  " );break;                                      //empty
+        case 1:printf(" @" );break;                                      //player
+        case 2:printf(" o" );break;                                      //point
+        case 3:SetConsoleTextAttribute(hConsole, 9);printf("[]" );break; //wall
+        case 4:SetConsoleTextAttribute(hConsole, 0);printf("{}" );break; //teleport
       }
       SetConsoleTextAttribute(hConsole, 9);// color cange
     }
@@ -102,7 +93,11 @@ void input (int map [L][C],char a){ //control of the input
       if (map [i][j]==1){
         switch (a){
           case 'w':
-            if (i-1>=0 && map [i-1][j]!=3){
+          if (map [i-1][j]==4){
+            map [i][j]=0;
+            map [L-1][j]=1;
+          }
+          else if (i-1>=0 && map [i-1][j]!=3){
               if (map [i-1][j]==2)
                 point++;
               map [i][j]=0;
@@ -124,7 +119,11 @@ void input (int map [L][C],char a){ //control of the input
             }
             break;
           case 's':
-            if (i+1<L && map [i+1][j]!=3){
+          if (map [i+1][j]==4){
+            map [i][j]=0;
+            map [1][j]=1;
+          }
+          else if (i+1<L && map [i+1][j]!=3){
               if (map [i+1][j]==2)
                 point++;
               map [i][j]=0;
@@ -157,23 +156,13 @@ void load (int map[L][C]){
   file = fopen("map.txt", "r");
   if (file) {
     while ((c = getc(file)) != EOF){
-      if (c=='W'){
-        map[i][j]=3;
-      }
-      else if (c=='P'){
-        map[i][j]=1;
-      }
-      else if (c=='B'){
-        map[i][j]=2;
-      }
-      else if (c=='E'){
-        map[i][j]=-1;
-      }
-      else if (c=='V'){
-        map[i][j]=0;
-      }
-      else if (c=='T'){
-        map[i][j]=4;
+      switch (c) {
+        case 'E':map[i][j]=-1;break;
+        case 'V':map[i][j]=0;break;
+        case 'P':map[i][j]=1;break;
+        case 'B':map[i][j]=2;break;
+        case 'W':map[i][j]=3;break;
+        case 'T':map[i][j]=4;break;
       }
       if (j==C-1){
         j=0;
