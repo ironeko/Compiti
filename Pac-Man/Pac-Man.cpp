@@ -34,6 +34,9 @@ Fatto:
 #include <stdbool.h>
 #include <windows.h>
 #include <time.h>
+#include <unistd.h>
+#include <pthread.h>
+#include "vts-nf.c"
 
 const int L=21,C=20;//21x20
 int point=0;
@@ -69,9 +72,7 @@ void print (int map [L][C]){
   HANDLE hConsole;
   hConsole = GetStdHandle(STD_OUTPUT_HANDLE);// color cange
   SetConsoleTextAttribute(hConsole, 9);// color cange
-  printf("\n\n\n\n" );
   for (int i=0;i<L;i++){
-    printf("\t" );
     for (int j=0;j<C;j++){
       SetConsoleTextAttribute(hConsole, 14);// color cange
       switch (map [i][j]) {
