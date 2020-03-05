@@ -1,3 +1,4 @@
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Color:
   1)
     HANDLE hConsole;
@@ -38,6 +39,8 @@ Color:
     6 = Verde oliva   E = Giallo
     7 = Grigio chiaro F = Bianco
 
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 Casual number:
   #include <time.h>
 
@@ -48,8 +51,116 @@ Casual number:
   ex:
   int a= rand()%100; random number from 0 to 100
 
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+threads
+  //https://www.geeksforgeeks.org/multithreading-c-2/
+
+  #include <stdio.h>
+  #include <stdlib.h>
+  #include <unistd.h>  //Header file for sleep(). man 3 sleep for details.
+  #include <pthread.h>
+
+  // A normal C function that is executed as a thread
+  // when its name is specified in pthread_create()
+  void *myThreadFun(void *vargp)
+  {
+      sleep(1);
+      printf("Printing GeeksQuiz from Thread \n");
+      return NULL;
+  }
+
+  int main()
+  {
+      pthread_t thread_id;// creiamo una variabile di tipo pthread_t cioe` un thread, in questo caso di nome thread_id
+      printf("Before Thread\n");
+      pthread_create(&thread_id, NULL, myThreadFun, NULL);// poi usiamo la funzione pthread_create che ha 4 argomenti:
+      //1. un putntatore (&) al thread (alla variabiler di tipo pthread_t)
+      //2. l`attributo, se e` NULL, e` quello di default
+      //3. il nome della funzione che verra` farra nel thread
+      //4. questa e` per passare argomenti alla funzione del punto 3
+      pthread_join(thread_id, NULL);//pthread_join() e` uguale a wait()
+      //pthread_join blocca il thread chiamante fino al termine del thread con identificativo uguale al primo argomento.
+      printf("After Thread\n");
+      exit(0);
+  }
+
+  //esempio piu` realistico dell`uso dei thread
+
+  #include <stdio.h>
+  #include <stdlib.h>
+  #include <unistd.h>
+  #include <pthread.h>
+
+  // Let us create a global variable to change it in threads
+  int g = 0;
+
+  // The function to be executed by all threads
+  void *myThreadFun(void *vargp)
+  {
+      // Store the value argument passed to this thread
+      int *myid = (int *)vargp;
+
+      // Let us create a static variable to observe its changes
+      static int s = 0;
+
+      // Change static and global variables
+      ++s; ++g;
+
+      // Print the argument, static and global variables
+      printf("Thread ID: %d, Static: %d, Global: %d\n", *myid, ++s, ++g);
+  }
+
+  int main()
+  {
+      int i;
+      pthread_t tid;
+
+      // Let us create three threads
+      for (i = 0; i < 3; i++)
+          pthread_create(&tid, NULL, myThreadFun, (void *)&tid);
+
+      pthread_exit(NULL);
+      return 0;
+  }
+
+  //L'accesso a una variabile globale in un thread è generalmente una cattiva idea.
+  //Che cosa succede se il thread 2 ha la priorità sul thread 1 e il thread 1 deve modificare la variabile.
+  //In pratica, se è necessario accedere alla variabile globale da più thread, è necessario accedervi utilizzando un mutex.
+
+  primo esempio creato da me:
+
+
+  void *colorchange(void *vargp){
+    HANDLE hConsole;
+    hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+    for (int i=0;i<16;i++){
+      SetConsoleTextAttribute(hConsole, i);
+      if (i==15)
+        i=0;
+    }
+  }
+
+  int main()
+  {
+      char words [10][30];
+      pthread_t thread;
+
+      pthread_create(&thread, NULL, colorchange, NULL);
+      for (int i=0;i<5;i++){
+        gets(words[i]);
+        printf("%s\n",words[i] );
+      }
+      pthread_exit(NULL);
+      return 0;
+  }
+
+  cambia colore a ogni lettera e ristampa la frase
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Ashii extended:
+
 DEC-OCT-HEX-BIN-Symbol-HTML Number-HTML Name-Description
 0	000	00	00000000	NUL	&#000;	 	Null char
 1	001	01	00000001	SOH	&#001;	 	Start of Heading
