@@ -72,7 +72,7 @@ void print (){
     for (int j=0;j<C;j++){
       SetConsoleTextAttribute(hConsole, 14);// color cange
       switch (map [i][j]) {
-        case -5:SetConsoleTextAttribute(hConsole, 9);printf("[]" );break;//enemy hose
+        case -5:SetConsoleTextAttribute(hConsole, 0);printf("[]" );break;//enemy hose
         case -4:SetConsoleTextAttribute(hConsole, 10);printf(" &" );break;
         case -3:SetConsoleTextAttribute(hConsole, 13);printf(" &" );break;
         case -2:SetConsoleTextAttribute(hConsole, 5);printf(" &" );break;

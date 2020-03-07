@@ -62,7 +62,7 @@ void print (){
     for (int j=0;j<C;j++){
       SetConsoleTextAttribute(hConsole, 14);// color cange
       switch (map [i][j]) {
-        case -5:SetConsoleTextAttribute(hConsole, 9);printf("[]" );break;//enemy hose
+        case -5:SetConsoleTextAttribute(hConsole, 0);printf("[]" );break;//enemy hose
         case -4:SetConsoleTextAttribute(hConsole, 10);printf(" &" );break;
         case -3:SetConsoleTextAttribute(hConsole, 13);printf(" &" );break;
         case -2:SetConsoleTextAttribute(hConsole, 5);printf(" &" );break;
@@ -83,53 +83,168 @@ void print (){
 }
 
 void enemy (){
-  int i=0,j=0,b1=0,b2=0,b3=0,b4=0,x=0,y=0;
+  int i=0,j=0,b[4],l[4][2];
+
+  for (int p=0;p<4;p++){
+    b [p]=2;
+  }
+
   srand(time(NULL));
   for (int t=0;t<=6;t++){
-    printf("ciao for della t\n" );
     switch (t) {
       case 1:
-      for (i=0;i<L;i++){
-        for (j=0;j<C;j++){
-          if (map [i][j]==-1){
-            i+=L;
-            j+=C;
+        for (i=0;i<L;i++){
+          for (j=0;j<C;j++){
+            if (map [i][j]==-1){
+              i+=L;
+              j+=C;
+            }
           }
         }
-      }
-      i-=L+1;
-      j-=C+1;
-      printf("%d %d,   %d\n",i,j,map[i][j] );
+        i-=L+1;
+        j-=C+1;
 
-      if (point<10){// search angol possibiltà if srand le i 2 possibili muovimenti else gli altri 2
-        printf("sono nel primo if bella\n" );
-        if (map [i-1][j+1]!=3 && map [i-1][j+1]>=0){
-          map [i][j]=b1;
-          b1=map [i-1][j+1];
-          map [i-1][j+1]=-1;
+        if (point<10){// search angol
+          if (map [i][j+1]!=3 && map [i][j+1]>=0 && l[0][1]!=j+1){
+            if (map [i][j+1]==4){
+              map [i][j]=b[0];
+              b[0]=map [i][1];
+              map [i][1]=-1;
+            }
+            else{
+              map[i][j]=b[0];
+              b[0]=map[i][j+1];
+              map[i][j+1]=-1;
+            }
+          }
+
+          else if (map [i-1][j]!=3 && map [i-1][j]>=0 && l[0][0]!=i-1){
+            if (map [i-1][j]==4){
+              map [i][j]=b[0];
+              b[0]=map [L-1][j];
+              map [L-1][j]=-1;
+            }
+            else{
+              map[i][j]=b[0];
+              b[0]=map[i-1][j];
+              map[i-1][j]=-1;
+            }
+          }
+
+          else if (map [i+1][j]!=3 && map [i+1][j]>=0 && l[0][0]!=i+1){
+            if (map [i+1][j]==4){
+              map [i][j]=b[0];
+              b[0]=map [1][j];
+              map [1][j]=-1;
+            }
+            else{
+              map[i][j]=b[0];
+              b[0]=map[i+1][j];
+              map[i+1][j]=-1;
+            }
+          }
+
+          else if(map [i][j-1]!=3 && map [i][j-1]>=0 && l[0][1]!=j-1){
+            if (map [i][j-1]==4){
+              map [i][j]=b[0];
+              b[0]=map [i][C-3];
+              map [i][C-3]=-1;
+            }
+            else{
+              map[i][j]=b[0];
+              b[0]=map[i][j-1];
+              map[i][j-1]=-1;
+            }
+          }
+          l[0][0]=i;
+          l[0][1]=j;
         }
-        else {
-          do{
-            do{
-              do{
-                x=rand()%2-1;
-                y=rand()%2-1;
-              }while(x==y);
-            }while(x!=0 || y!=0);
+        else{// to the player
 
-            printf("%d %d ,%d %d\n",y,x,i+y,j+x );
-          }while (map[i+y][i+x]==3 && map [i+y][j+x]<=0 );
-            map [i][j]=b1;
-            b1=map [i+y][j+x];
-            map [i+y][j+x]=-1;
+        };break;
 
-        }
-        print();
-      }
       case 2:
       case 3:
-      case 4:
-      case 5: sleep(500);t=0;break;
+      case 4:/*
+        int a;
+        for (i=0;i<L;i++){
+          for (j=0;j<C;j++){
+            if (map [i][j]==-3){
+              i+=L;
+              j+=C;
+            }
+          }
+        }
+        i-=L+1;
+        j-=C+1;
+        do{
+          a=rand()%4;
+          switch (a) {
+            case 1:
+              if (map [i][j+1]!=3 && map [i][j+1]>=0 && l[3][1]!=j+1){
+                if (map [i][j+1]==4){
+                  map [i][j]=b[0];
+                  b[0]=map [i][1];
+                  map [i][1]=-4;
+                }
+                else{
+                  map[i][j]=b[0];
+                  b[0]=map[i][j+1];
+                  map[i][j+1]=-4;
+                }
+                a=0;
+              }
+              break;
+            case 2:
+            if (map [i-1][j]!=3 && map [i-1][j]>=0 && l[3][0]!=i-1){
+              if (map [i-1][j]==4){
+                map [i][j]=b[0];
+                b[0]=map [L-1][j];
+                map [L-1][j]=-4;
+              }
+              else{
+                map[i][j]=b[0];
+                b[0]=map[i-1][j];
+                map[i-1][j]=-4;
+              }
+              a=0;
+            }
+            break;
+            case 3:
+              if (map [i+1][j]!=3 && map [i+1][j]>=0 && l[3][0]!=i+1){
+                if (map [i+1][j]==4){
+                  map [i][j]=b[0];
+                  b[0]=map [1][j];
+                  map [1][j]=-4;
+                }
+                else{
+                  map[i][j]=b[0];
+                  b[0]=map[i+1][j];
+                  map[i+1][j]=-4;
+                }
+                a=0;
+              }
+              break;
+            case 4:
+              if(map [i][j-1]!=3 && map [i][j-1]>=0 && l[3][1]!=j-1){
+                if (map [i][j-1]==4){
+                  map [i][j]=b[0];
+                  b[0]=map [i][C-3];
+                  map [i][C-3]=-4;
+                }
+                else{
+                  map[i][j]=b[0];
+                  b[0]=map[i][j-1];
+                  map[i][j-1]=-4;
+                }
+                a=0;
+              }
+          }
+        }while (a!=0);
+        l[3][0]=i;
+        l[3][1]=j;
+        break;*/
+      case 5: print();Sleep(500);system("cls");t=0;break;
     }
   }
 }
