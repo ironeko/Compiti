@@ -165,11 +165,11 @@ void enemy (){
 
       case 2:
       case 3:
-      case 4:/*
+      case 4:
         int a;
         for (i=0;i<L;i++){
           for (j=0;j<C;j++){
-            if (map [i][j]==-3){
+            if (map [i][j]==-4){
               i+=L;
               j+=C;
             }
@@ -243,8 +243,8 @@ void enemy (){
         }while (a!=0);
         l[3][0]=i;
         l[3][1]=j;
-        break;*/
-      case 5: print();Sleep(500);system("cls");t=0;break;
+        break;
+      case 5: print();Sleep(50);system("cls");t=0;break;
     }
   }
 }
