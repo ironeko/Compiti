@@ -1,31 +1,27 @@
-/*
-Aggiungere:
--multithreading
--nemici
--musica
--possibilità di mangiare i nemici
+// thenk you Toru Iwatani
 
+/*
+on map.txt
 W=wall
 P=player
 B=point
-E=enemy
+E=enemy house
 V=void
 T=teleport
 
--1=enemy
+in the code
+-5=ghost house
+-4=Clyde  (the orange Ghost)
+-3=Pinky  (the pink Ghost)
+-2=Inky   (the blue Ghost)
+-1=Blinky (the red Ghost)
 0=empty
 1=player
 2=point
 3=wall
 4=teleport
-
-Fatto:
--iniziare con una versione semplificata soltanto con un rettangolo e la possibilità di muoversi
-- pezzi da mangiare
--mappa  (idea: creare un .txt in cui vene salvata la mappa con caratteri speciali es. w=muro, p=payer; creare una funzione per essa e trasportarla nell'array)
--ostacoli e bordi
--inserimento senza invio
 */
+
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -39,15 +35,15 @@ Fatto:
 #include "vts-nf.c"
 
 const int L=21,C=20;//21x20
-int point=0;
+int point=0,map[L][C];
 
-void print (int [L][C]);
-void input (int [L][C],char);
-void load (int [L][C]);
-int win (int [L][C]);
+void print ();
+void input (char);
+void load ();
+int win ();
 
 int main (){
-  int map[L][C],v=0; // the map,possibility of win
+  int v=0; // possibility of win
   char a;       // the choose
 
   for (int i=0;i<L;i++){ // for now, set to 0
@@ -55,20 +51,20 @@ int main (){
       map [i][j]=0;
     }
   }
-  load (map);
+  load ();
 
   while (v!=1) {
-    print (map);
+    print ();
     fflush(stdin);
     a=getche();
-    input (map,a);
+    input (a);
     system ("cls");
-    v=win(map);
+    v=win();
   }
   printf("you win\n" );
 }
 
-void print (int map [L][C]){
+void print (){
   HANDLE hConsole;
   hConsole = GetStdHandle(STD_OUTPUT_HANDLE);// color cange
   SetConsoleTextAttribute(hConsole, 9);// color cange
@@ -76,7 +72,11 @@ void print (int map [L][C]){
     for (int j=0;j<C;j++){
       SetConsoleTextAttribute(hConsole, 14);// color cange
       switch (map [i][j]) {
-        case -1:SetConsoleTextAttribute(hConsole, 9);printf("[]" );break;//enemy for the moment
+        case -5:SetConsoleTextAttribute(hConsole, 9);printf("[]" );break;//enemy hose
+        case -4:SetConsoleTextAttribute(hConsole, 10);printf(" &" );break;
+        case -3:SetConsoleTextAttribute(hConsole, 13);printf(" &" );break;
+        case -2:SetConsoleTextAttribute(hConsole, 5);printf(" &" );break;
+        case -1:SetConsoleTextAttribute(hConsole, 12);printf(" &" );break;
         case 0:printf("  " );break;                                      //empty
         case 1:printf(" @" );break;                                      //player
         case 2:printf(" o" );break;                                      //point
@@ -92,7 +92,7 @@ void print (int map [L][C]){
   printf("\n\n\t" );
 }
 
-void input (int map [L][C],char a){ //control of the input
+void input (char a){ //control of the input
   for (int i=0;i<L;i++){
     for (int j=0;j<C;j++){
       if (map [i][j]==1){
@@ -155,14 +155,18 @@ void input (int map [L][C],char a){ //control of the input
   }
 }
 
-void load (int map[L][C]){
+void load (){
   int c,i=0,j=0;
   FILE *file;
   file = fopen("map.txt", "r");
   if (file) {
     while ((c = getc(file)) != EOF){
       switch (c) {
-        case 'E':map[i][j]=-1;break;
+        case 'E':map[i][j]=-5;break;
+        case '1':map[i][j]=-1;break;
+        case '2':map[i][j]=-2;break;
+        case '3':map[i][j]=-3;break;
+        case '4':map[i][j]=-4;break;
         case 'V':map[i][j]=0;break;
         case 'P':map[i][j]=1;break;
         case 'B':map[i][j]=2;break;
@@ -180,7 +184,7 @@ void load (int map[L][C]){
   }
 }
 
-int win (int map[L][C]){
+int win (){
   for (int i=0;i<L;i++){
     for (int j=0;j<C;j++){
       if (map[i][j]==2){
