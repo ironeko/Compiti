@@ -46,6 +46,8 @@ int main (){
   int v=0; // possibility of win
   char a;       // the choose
 
+
+
   for (int i=0;i<L;i++){ // for now, set to 0
     for (int j=0;j<C;j++){
       map [i][j]=0;
@@ -53,6 +55,10 @@ int main (){
   }
   load ();
 
+  vts_cursorXY(0,0);
+  print ();
+
+  /*
   while (v!=1) {
     print ();
     fflush(stdin);
@@ -60,7 +66,7 @@ int main (){
     input (a);
     system ("cls");
     v=win();
-  }
+  }*/
   printf("you win\n" );
 }
 

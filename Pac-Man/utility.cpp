@@ -252,7 +252,6 @@ void enemy (){
 int main (){
   load();
   print();
-
   for (int i=0;i<L;i++){
     for (int j=0;j<C;j++){
       printf(" %d",map[i][j]);
