@@ -35,17 +35,18 @@ in the code
 #include "vts-nf.c"
 
 const int L=21,C=20;//21x20
-int point=0,map[L][C],map1[L][C];
+int point=0,map[L][C],map1[L][C],v=0;
 
 void print ();
 void input (char);
 void load ();
-int win ();
+void *win (void *vargp);
 void control();
 
 int main (){
-  int v=0; // possibility of win
   char a;       // the choose
+  pthread_t winning;
+  pthread_create(&winning, NULL, win, NULL);
 
   for (int i=0;i<L;i++){ // for now, set to 0
     for (int j=0;j<C;j++){
@@ -60,13 +61,12 @@ int main (){
   }
   print ();
   while (v!=1) {
-
     fflush(stdin);
     a=getche();
     input (a);
     control();
-    v=win();
   }
+  pthread_exit(NULL);
   printf("you win\n" );
 }
 
@@ -224,16 +224,24 @@ void load (){
   }
 }
 
-int win (){
-  for (int i=0;i<L;i++){
-    for (int j=0;j<C;j++){
-      if (map[i][j]==2){
-        return 0;
+void *win (void *vargp){
+  int c=0;
+  while (v!=1){
+    for (int i=0;i<L;i++){
+      for (int j=0;j<C;j++){
+        if (map[i][j]==2){
+          v=0;
+          c=1;
+        }
       }
     }
+    if (c==0){
+      v=1;
+    }
   }
-  return 1;
 }
+
+
 
 
 

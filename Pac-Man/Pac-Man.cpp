@@ -30,8 +30,6 @@ in the code
 #include <stdbool.h>
 #include <windows.h>
 #include <time.h>
-#include <unistd.h>
-#include <pthread.h>
 #include "vts-nf.c"
 
 const int L=21,C=20;//21x20

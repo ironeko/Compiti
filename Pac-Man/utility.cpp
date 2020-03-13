@@ -23,7 +23,7 @@ Fatto:
 #include <pthread.h>
 #include "vts-nf.c"
 const int L=21,C=20;
-int map[L][C];
+int map[L][C],map1[L][C];
 int point=0;
 
 void load (){
@@ -54,6 +54,39 @@ void load (){
     fclose(file);
   }
 }
+
+void control(){
+  HANDLE hConsole;
+  hConsole = GetStdHandle(STD_OUTPUT_HANDLE);// color cange
+  for (int i=0;i<L;i++){
+    for (int j=0;j<C;j++){
+      if (map [i][j]!=map1[i][j]){
+        vts_cursorXY(j*2,i);
+        SetConsoleTextAttribute(hConsole, 14);// color cange
+        switch (map [i][j]) {
+          case -5:SetConsoleTextAttribute(hConsole, 0);printf("[" );vts_cursorXY(j*2+1,i);printf("]" );break;//enemy hose
+          case -4:SetConsoleTextAttribute(hConsole, 10);printf(" " );vts_cursorXY(j*2+1,i);printf("&" );break;
+          case -3:SetConsoleTextAttribute(hConsole, 13);printf(" " );vts_cursorXY(j*2+1,i);printf("&" );break;
+          case -2:SetConsoleTextAttribute(hConsole, 5);printf(" " );vts_cursorXY(j*2+1,i);printf("&" );break;
+          case -1:SetConsoleTextAttribute(hConsole, 12);printf(" " );vts_cursorXY(j*2+1,i);printf("&" );break;
+          case 0:printf(" " );vts_cursorXY(j*2+1,i);printf(" " );break;                                      //empty
+          case 1:printf(" " );vts_cursorXY(j*2+1,i);printf("@" );break;                                      //player
+          case 2:printf(" " );vts_cursorXY(j*2+1,i);printf("o" );break;                                      //point
+          case 3:SetConsoleTextAttribute(hConsole, 9);printf("[" );vts_cursorXY(j*2+1,i);printf("]" );break; //wall
+          case 4:SetConsoleTextAttribute(hConsole, 0);printf("{" );vts_cursorXY(j*2+1,i);printf("}" );break; //teleport
+        }
+        SetConsoleTextAttribute(hConsole, 7);// color cange
+      }
+    }
+  }
+  for (int i=0;i<L;i++){
+    for (int j=0;j<C;j++){
+      map1 [i][j]=map[i][j];
+    }
+  }
+  vts_cursorXY(L-13,C+3);
+}
+
 void print (){
   HANDLE hConsole;
   hConsole = GetStdHandle(STD_OUTPUT_HANDLE);// color cange
@@ -244,21 +277,26 @@ void enemy (){
         l[3][0]=i;
         l[3][1]=j;
         break;
-      case 5: print();Sleep(50);system("cls");t=0;break;
+      case 5: Sleep(250);control();t=0;break;
     }
   }
 }
 
 int main (){
   load();
-  print();
+  for (int i=0;i<L;i++){
+    for (int j=0;j<C;j++){
+      map1 [i][j]=map[i][j];
+    }
+  }
+  print();/*
   for (int i=0;i<L;i++){
     for (int j=0;j<C;j++){
       printf(" %d",map[i][j]);
     }
     printf("\n" );
   }
-  printf("\n" );
+  printf("\n" );*/
 
   enemy();
 }
