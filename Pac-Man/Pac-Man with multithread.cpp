@@ -1,5 +1,5 @@
 // thenk you Toru Iwatani
-
+// non funziona 
 /*
 on map.txt
 W=wall
