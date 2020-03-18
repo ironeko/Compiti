@@ -11,7 +11,7 @@ int mare[R][C];
 void setrandom(int *,int *,int *,int *);
 void stampa ();
 
-int main(){
+int main(){00
   int t=0,a=0,b=0,v=0,x1,y1,x2,y2;
   setrandom(&x1,&y1,&x2,&y2);
   do{

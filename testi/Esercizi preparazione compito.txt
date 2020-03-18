@@ -1,0 +1,21 @@
+Esercizi di Preparazione al compito di Laboratorio
+
+Esercizio_1
+Dato un vettore chiamato cognomi (con N elementi) contenente i cognomi degli studenti di una
+classe e una matrice voti(NxC)che riporta i voti degli studenti in C materie, caricare casualmente la
+matrice voti con valori interi compresi fra 1 e 10 e quindi visualizzare per ogni studente, il voto più
+alto, quello più basso, e la media dei voti conseguiti. Inoltre contare per ogni studente il numero dei
+voti negativi e il numero dei voi positivi. Infine visualizzare il numero di studenti promossi senza
+alcun debito, quelli promossi con 1,2,3 debiti, e quelli respinti.
+
+
+Esercizio_2
+Realizzare un programma che permetta di riempire una matrice Quadrata NxN con N pari dalla
+cornice partendo da 1 fino a N/2
+ad esempio N=6
+1 1 1 1 1 1
+1 2 2 2 2 1
+1 2 3 3 2 1
+1 2 3 3 2 1
+1 2 2 2 2 1
+1 1 1 1 1 1
