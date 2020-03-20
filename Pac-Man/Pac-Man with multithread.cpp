@@ -1,5 +1,5 @@
 // thenk you Toru Iwatani
-// non funziona 
+// non funziona
 /*
 on map.txt
 W=wall
@@ -32,7 +32,10 @@ in the code
 #include <time.h>
 #include <unistd.h>
 #include <pthread.h>
+#include <fstream>
+#include <iostream>
 #include "vts-nf.c"
+using namespace std;
 
 const int L=21,C=20;//21x20
 int point=0,map[L][C],map1[L][C],v=0;
@@ -41,12 +44,16 @@ void print ();
 void input (char);
 void load ();
 void *win (void *vargp);
+void *mus (void *vargp);
 void control();
+
+
 
 int main (){
   char a;       // the choose
-  pthread_t winning;
+  pthread_t winning,music;
   pthread_create(&winning, NULL, win, NULL);
+  pthread_create(&music, NULL, mus, NULL);
 
   for (int i=0;i<L;i++){ // for now, set to 0
     for (int j=0;j<C;j++){
@@ -241,7 +248,14 @@ void *win (void *vargp){
   }
 }
 
-
+void *mus (void *vargp){
+  char audiofile_char[1];
+  fstream fp;
+  fp.open(audiofile_char, ios::in);
+  PlaySound("ciao.wav", NULL, SND_SYNC);
+  fp.close();
+  return 0;
+}
 
 
 
