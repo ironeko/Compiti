@@ -25,10 +25,10 @@ Fatto:
 #include "vts-nf.c"
 using namespace std;
 
-#define ROW 9
-#define COL 10
+#define ROW 21
+#define COL 20
 
-int grid[ROW][COL];
+int grid[ROW][COL],grid1[ROW][COL];
 int point=0;
 
 void load (){
@@ -38,18 +38,18 @@ void load (){
   if (file) {
     while ((c = getc(file)) != EOF){
       switch (c) {
-        case 'E':map[i][j]=-5;break;
-        case '1':map[i][j]=-1;break;
-        case '2':map[i][j]=-2;break;
-        case '3':map[i][j]=-3;break;
-        case '4':map[i][j]=-4;break;
-        case 'V':map[i][j]=0;break;
-        case 'P':map[i][j]=1;break;
-        case 'B':map[i][j]=2;break;
-        case 'W':map[i][j]=3;break;
-        case 'T':map[i][j]=4;break;
+        case 'E':grid[i][j]=-5;break;
+        case '1':grid[i][j]=-1;break;
+        case '2':grid[i][j]=-2;break;
+        case '3':grid[i][j]=-3;break;
+        case '4':grid[i][j]=-4;break;
+        case 'V':grid[i][j]=0;break;
+        case 'P':grid[i][j]=1;break;
+        case 'B':grid[i][j]=2;break;
+        case 'W':grid[i][j]=3;break;
+        case 'T':grid[i][j]=4;break;
       }
-      if (j==C-1){
+      if (j==COL-1){
         j=0;
         i++;
       }
@@ -62,12 +62,12 @@ void load (){
 void control(){
   HANDLE hConsole;
   hConsole = GetStdHandle(STD_OUTPUT_HANDLE);// color cange
-  for (int i=0;i<L;i++){
-    for (int j=0;j<C;j++){
-      if (map [i][j]!=map1[i][j]){
+  for (int i=0;i<ROW;i++){
+    for (int j=0;j<COL;j++){
+      if (grid [i][j]!=grid1[i][j]){
         vts_cursorXY(j*2,i);
         SetConsoleTextAttribute(hConsole, 14);// color cange
-        switch (map [i][j]) {
+        switch (grid [i][j]) {
           case -5:SetConsoleTextAttribute(hConsole, 0);printf("[" );vts_cursorXY(j*2+1,i);printf("]" );break;//enemy hose
           case -4:SetConsoleTextAttribute(hConsole, 10);printf(" " );vts_cursorXY(j*2+1,i);printf("&" );break;
           case -3:SetConsoleTextAttribute(hConsole, 13);printf(" " );vts_cursorXY(j*2+1,i);printf("&" );break;
@@ -83,21 +83,21 @@ void control(){
       }
     }
   }
-  for (int i=0;i<L;i++){
-    for (int j=0;j<C;j++){
-      map1 [i][j]=map[i][j];
+  for (int i=0;i<ROW;i++){
+    for (int j=0;j<COL;j++){
+      grid1 [i][j]=grid[i][j];
     }
   }
-  vts_cursorXY(L-13,C+3);
+  vts_cursorXY(ROW-13,COL+3);
 }
 void print (){
   HANDLE hConsole;
   hConsole = GetStdHandle(STD_OUTPUT_HANDLE);// color cange
   SetConsoleTextAttribute(hConsole, 9);// color cange
-  for (int i=0;i<L;i++){
-    for (int j=0;j<C;j++){
+  for (int i=0;i<ROW;i++){
+    for (int j=0;j<COL;j++){
       SetConsoleTextAttribute(hConsole, 14);// color cange
-      switch (map [i][j]) {
+      switch (grid [i][j]) {
         case -5:SetConsoleTextAttribute(hConsole, 0);printf("[]" );break;//enemy hose
         case -4:SetConsoleTextAttribute(hConsole, 10);printf(" &" );break;
         case -3:SetConsoleTextAttribute(hConsole, 13);printf(" &" );break;
@@ -706,21 +706,19 @@ void enemy(Pair src, Pair dest){
 
 int main (){
   load();
-  for (int i=0;i<L;i++){
-    for (int j=0;j<C;j++){
-      map1 [i][j]=map[i][j];
+  for (int i=0;i<ROW;i++){
+    for (int j=0;j<COL;j++){
+      grid1 [i][j]=grid[i][j];
     }
   }
-  print();/*
-  for (int i=0;i<L;i++){
-    for (int j=0;j<C;j++){
-      printf(" %d",map[i][j]);
-    }
-    printf("\n" );
-  }
-  printf("\n" );*/
+  print();
+  // Source is the left-most bottom-most corner
+	Pair src = make_pair(5, 5);
+	// Destination is the left-most top-most corner
+	Pair dest = make_pair(0, 0);
+	enemy(src, dest);
+  printf("\n" );
 
-  enemy();
 }
 
 
