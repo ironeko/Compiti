@@ -214,18 +214,19 @@ void sistemare(){
 
 void cercaAutore(){
   char autore[N],app[N];
-  int a=0,b=N;
+  int a=0,b=N-1;
   printf("inserisci nome autore:\t");
   fgets(autore,N,stdin);
-  for (int i=N-1;i>=0;i--){
-    if (a==0){
-      if (libri[a].titolo[i]==' ' || autore[i]=='\n'){
-        a=0;
-      }
+  for (int i=0;i<N;i++){
+    if (autore[i]=='\n'){
+      autore[i]=' ';
     }
-    else{
+  }
+  for (int i=N;i>=0;i--){
+    printf("%d %d\n",a,autore[i] );
+    if (autore[i]<=126 && autore[i] >=33){
       a=1;
-      app[b]=libri[a].titolo[i];
+      app[b]=autore[i];
       b--;
     }
   }
@@ -241,7 +242,7 @@ void cercaAutore(){
     }
   }
   strcpy(autore,app);
-  printf("*************%s***************",autore );
+  printf("*************%s***************",autore);
 
   for (int i=0;i<c;i++){
     if (strcmp(autore,libri[i].autore)==0)
