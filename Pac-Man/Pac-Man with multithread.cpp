@@ -60,6 +60,7 @@ int main (){
       map [i][j]=0;
     }
   }
+
   load ();
   for (int i=0;i<L;i++){
     for (int j=0;j<C;j++){
@@ -72,6 +73,7 @@ int main (){
     a=getche();
     input (a);
     control();
+    pthread_create(&winning, NULL, win, NULL);
   }
   pthread_exit(NULL);
   printf("you win\n" );
@@ -232,20 +234,21 @@ void load (){
 }
 
 void *win (void *vargp){
-  int c=0;
-  while (v!=1){
-    for (int i=0;i<L;i++){
-      for (int j=0;j<C;j++){
-        if (map[i][j]==2){
-          v=0;
-          c=1;
-        }
+  /*int c=0;
+  for (int i=0;i<L;i++){
+    for (int j=0;j<C;j++){
+      if (map[i][j]==2){
+        v=0;
+        c=1;
       }
     }
-    if (c==0){
-      v=1;
-    }
   }
+  if (c==0){
+    v=1;
+  }*/
+  for (int i=0;i<5;i--){
+  }
+  return 0;
 }
 
 void *mus (void *vargp){
