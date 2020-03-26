@@ -34,6 +34,7 @@ int altro();
 void salvalibri();
 void autorescresce();
 void otto();
+void tunonesisti();
 
 int main (){
   int a;
@@ -44,17 +45,11 @@ int main (){
     printf ("\n  BIBLIOTECA \n");
     printf ("************************");
     printf ("\n\nInserire una scelta:");
-    printf ("\n 1 - Elimina Libro");//fatto
-    printf ("\n 2 - Stampa catalogo");//fatto
-    printf ("\n 3 - Aggiungi un libro");//fatto
-    printf ("\n 4 - Ricerca libro per Autore");//forse
-    printf ("\n 5 - Ricerca libro per anno di pubblicazione");//fatto
-    printf ("\n 6 - Classifica Autori chi ha pių libri pubblicati");
-    printf ("\n 7 - Ordina per autore crescente");//fatto
-    printf ("\n 8 - Ricerca libro per genere e anno di pubblicazione");
-    printf ("\n 9 - Elimina Autore e tutti i suoi libri");
+    printf ("\n 1 - Elimina Libro\n 2 - Stampa catalogo\n 3 - Aggiungi un libro\n 4 - Ricerca libro per Autore");//fatto
+    printf ("\n 6 - Classifica Autori chi ha piu' libri pubblicati");
+    printf ("\n 7 - Ordina per autore crescente\n 8 - Ricerca libro per genere e anno di pubblicazione\n 9 - Elimina Autore e tutti i suoi libri");//fatto
   	printf ("\n 10 - Creare un file BINARIO o .DAT ---- VEDI SLIDE date qualche settimana fa");
-  	printf ("\n 0 - Esci e Salva le modifiche al file TXT");
+  	printf ("\n 0 - Esci e Salva le modifiche al file TXT");//fatto
     printf ("\ninserisci il numero della tua scelta:\t" );
     fgets(b,3,stdin);
     a=atoi(b);
@@ -67,7 +62,7 @@ int main (){
       case 6: piuLibri();break;
       case 7: autorescresce();break;
       case 8: otto();break;
-      case 9:;break;
+      case 9: tunonesisti();break;
       case 10:;break;
       case 0: salvalibri();break;
       default: printf("\aERRORE INSERIMENTO\n");system("pause");
@@ -185,52 +180,6 @@ void anno(){
   }
 }
 
-int numeroLibriAutore(int a){
-  int num=0;
-  for (int i=0;i<c;i++){
-    if (strcmp(libri[a].autore,libri[i].autore)==0){
-      num++;
-    }
-  }
-  return num;
-}
-
-void piuLibri(){
-  char books[c][N];
-  int linea[c],linea2[c];
-  linea [0]=0;
-  int a=1;
-  strcpy(books[0],libri[0].autore);
-  for (int i=0;i<c;i++){
-    for (int j=0;j<c;c++){
-      if (strcasecmp(libri[j].autore,books[i])!=0){
-        strcpy(books[a],libri[j].autore);
-        linea[a]=j;
-        a++;
-      }
-    }
-  }
-  for (int i=0;i<a;i++){
-    linea2[i]=numeroLibriAutore(linea[i]);
-  }
-  int j,val,val2;
-	for(int i=1;i<c;i++){
-		val = linea2[i];
-    val2=linea[i];
-		j=i-1;
-		for(;j>=0 && linea2[j]>val; j--){
-			linea2[j+1]=linea2[j];
-      linea[j+1]=linea[j];
-		}
-		linea2[j+1] = val;
-    linea[j+1]=val2;
-	}
-
-  for (int i=0;i<c;i++){
-    printf("%s %d\n",libri[linea[i]].autore,linea2[i] );
-  }
-}
-
 void sistem(){
   for (int i=0;i<c;i++){
     sistemare(libri[i].titolo);
@@ -322,7 +271,7 @@ void otto(){
   fgets(autore,N,stdin);
   sistemare(autore);
   a=1;
-  for (int i=0;i<c;i++){
+  for (int i=0;i<v+1;i++){
     if (strstr(autore,app[i])!=NULL){
       printf("%d)\n",a );
       stampa(i);
@@ -335,39 +284,52 @@ void otto(){
   }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-void caricalibri(){
-  FILE *file;
-  file = fopen("catalogo.txt", "r");
-  while (feof(file) == 0){
-    fscanf(file,"%s %s %s %s %d %f",libri[c].titolo,libri[c].autore,libri[c].casaEditrice,libri[c].genere,&libri[c].annoPubblicazione,&libri[c].prezzo);
-    c++;
-  }
-  fclose(file);
+void tunonesisti(){
+  char autore[N];
+  int a=0;
+  printf("inserisci nome autore:\t");
+  fgets(autore,N,stdin);
+  sistemare(autore);
+  a=1;
   for (int i=0;i<c;i++){
-    for (int j=0;j<c;j++){
+    if (strstr(autore,libri[i].autore)!=NULL){
+      elimina(i);
+      a++;
     }
   }
+  if (a==1){
+    printf ("Autore non trovato\n");
+  }
 }
-*/
+
+void piuLibri(){
+  int buff[2][c][N],a=0;
+  for (int i=0;i<c;i++){
+    for (int j=0;j<c;j++){
+      if (strcasecmp(libri[i].autore,buff[1][j])==0){
+        buff[2][j]++;
+      }
+    }
+    if (a)
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //ciao
