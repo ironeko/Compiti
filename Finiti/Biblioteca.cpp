@@ -7,7 +7,7 @@
 #include <strings.h>
 #include <ctype.h>
 
-#define NMAX 10   // Lunghezza massima vettori
+#define NMAX 100   // Lunghezza massima vettori
 #define N 20
 int c=0;
 
@@ -35,26 +35,22 @@ void salvalibri();
 void autorescresce();
 void otto();
 void tunonesisti();
+void binbin();
 
 int main (){
   int a;
-  char b[3];
+  char b[4];
   caricalibri();
   do{
-    printf ("************************");
-    printf ("\n  BIBLIOTECA \n");
-    printf ("************************");
-    printf ("\n\nInserire una scelta:");
+    printf ("************************\n  BIBLIOTECA \n************************");
     printf ("\n 1 - Elimina Libro\n 2 - Stampa catalogo\n 3 - Aggiungi un libro\n 4 - Ricerca libro per Autore");//fatto
-    printf ("\n 6 - Classifica Autori chi ha piu' libri pubblicati");
-    printf ("\n 7 - Ordina per autore crescente\n 8 - Ricerca libro per genere e anno di pubblicazione\n 9 - Elimina Autore e tutti i suoi libri");//fatto
-  	printf ("\n 10 - Creare un file BINARIO o .DAT ---- VEDI SLIDE date qualche settimana fa");
-  	printf ("\n 0 - Esci e Salva le modifiche al file TXT");//fatto
-    printf ("\ninserisci il numero della tua scelta:\t" );
-    fgets(b,3,stdin);
+    printf ("\n 6 - Classifica Autori chi ha piu' libri pubblicati\n 7 - Ordina per autore crescente\n 8 - Ricerca libro per genere e anno di pubblicazione\n 9 - Elimina Autore e tutti i suoi libri");//fatto
+  	printf ("\n 10 - Creare un file BINARIO o .DAT ---- VEDI SLIDE date qualche settimana fa\n 0 - Esci e Salva le modifiche al file TXT\ninserisci il numero della tua scelta:\t");
+    fgets(b,4,stdin);
     a=atoi(b);
+    printf("\n\n");
     switch (a) {
-      case 1: a=altro(); elimina(a);break;
+      case 1: a=altro(); elimina(a);c--;break;
       case 2: for (int i=0;i<c;i++) {stampa(i);} ;break;
       case 3: aggiungi();break;
       case 4: cercaAutore();break;
@@ -63,7 +59,7 @@ int main (){
       case 7: autorescresce();break;
       case 8: otto();break;
       case 9: tunonesisti();break;
-      case 10:;break;
+      case 10: binbin();break;
       case 0: salvalibri();break;
       default: printf("\aERRORE INSERIMENTO\n");system("pause");
     }
@@ -75,7 +71,7 @@ int main (){
 }
 
 void stampa(int i){
-  printf("%s %s %s %s %d %.2f\n",libri[i].titolo,libri[i].autore,libri[i].casaEditrice,libri[i].genere,libri[i].annoPubblicazione,libri[i].prezzo);
+  printf("\t%s %s %s %s %d %.2f\n",libri[i].titolo,libri[i].autore,libri[i].casaEditrice,libri[i].genere,libri[i].annoPubblicazione,libri[i].prezzo);
 }
 
 void elimina(int a){
@@ -139,6 +135,11 @@ void sistemare(char *stringa){
       app[b]=stringa[i];
     }
     b--;
+  }
+  for (int i=0;i<N;i++){
+    if (app[i]==' '){
+      app[i]='_';
+    }
   }
   strcpy(stringa,app);
 }
@@ -222,7 +223,7 @@ void salvalibri(){
   file = fopen("inventario.txt", "w");
   if (file!=NULL){
     for (int i=0;i<c;i++){
-      fprintf(file,"%s %s %s %s %d %f\n",libri[i].titolo,libri[i].autore,libri[i].casaEditrice,libri[i].genere,libri[i].annoPubblicazione,libri[i].prezzo);
+      fprintf(file,"%s %s %s %s %d %.2f\n",libri[i].titolo,libri[i].autore,libri[i].casaEditrice,libri[i].genere,libri[i].annoPubblicazione,libri[i].prezzo);
     }
   }
   else{
@@ -303,33 +304,52 @@ void tunonesisti(){
 }
 
 void piuLibri(){
-  int buff[2][c][N],a=0;
+  int buff[c],a=0,v=0;
+  char buffer[c][N];
+  for(int i=0;i<c;i++)
+    buff[i]=0;
   for (int i=0;i<c;i++){
-    for (int j=0;j<c;j++){
-      if (strcasecmp(libri[i].autore,buff[1][j])==0){
-        buff[2][j]++;
+    for (int j=0;j<c && a==0;j++){
+      if (strcasecmp(libri[i].autore,buffer[j])==0){
+        buff[j]+=1;
+        a=1;
       }
     }
-    if (a)
+    if (a==0){
+      strcpy(buffer[v],libri[i].autore);
+      buff[v]+=1;
+      v++;
+    }
+    a=0;
+  }
+	int j,val;
+  char app[N];
+	for(int i=1;i<v;i++){
+		val = buff[i];
+    strcpy(app,buffer[i]);
+		j=i-1;
+		for(;j>=0 && buff[j]>val; j--){
+			buff[j+1]=buff[j];
+      strcpy(buffer[j+1],buffer[j]);
+		}
+			buff[j+1] = val;
+      strcpy(buffer[j+1],app);
+	}
+  for (int i=v-1;i>=0;i--){
+    printf("%d %s\n",buff[i],buffer[i] );
   }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//ciao
+void binbin(){
+  FILE *file;
+  file=fopen("bella.dat","w");
+  for (int i=0;i<c;i++){
+    fwrite (libri[i].titolo , sizeof(char), sizeof(libri [i]), file);
+    fwrite (libri[i].autore , sizeof(char), sizeof(libri [i]), file);
+    fwrite (libri[i].casaEditrice , sizeof(char), sizeof(libri [i]), file);
+    fwrite (libri[i].genere , sizeof(char), sizeof(libri [i]), file);
+    fwrite (&libri[i].annoPubblicazione , sizeof(libri[i].annoPubblicazione), 1, file);
+    fwrite (&libri[i].prezzo , sizeof(libri[i].prezzo), 1, file);
+  }
+  fclose(file);
+}

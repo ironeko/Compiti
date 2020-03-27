@@ -1,0 +1,5 @@
+ciao ciao cioa ciao 123 3.00
+titolo1 autore1 ced1 gen1 2001 9.99
+titolo2 autore2 ced2 gen2 2002 9.98
+titolo3 autore1 ced2 gen3 2003 7.98
+    0 0.00
