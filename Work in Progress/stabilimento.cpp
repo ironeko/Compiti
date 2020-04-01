@@ -20,6 +20,10 @@ int main (){
   int a;
   char b[4];
   carica();
+  char abba[N];
+  fgets(abba,N,stdin);
+  sistemare(abba);
+  printf("%s\n",abba );
   do{
     printf("ancora nulla\n" );
     fgets(b,4,stdin);
@@ -65,11 +69,6 @@ void sistemare(char *stringa){
       app[b]=stringa[i];
     }
     b--;
-  }
-  for (int i=0;i<N;i++){
-    if (app[i]==' '){
-      app[i]='_';
-    }
   }
   strcpy(stringa,app);
 }
