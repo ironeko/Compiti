@@ -1,4 +1,25 @@
-/*stabilimento balneare*/
+/*Stabilimenti Balneari
+
+Definire una tabella adatta a contenere, per N stabilimenti balneari, il nome, il numero di ombrelloni disponibili, la tariffa giornaliera e se vi è il servizio di ristorazione.
+Una volta caricati i dati da un file di testo chiamato stabilimenti.txt il programma dovrà svolgere le seguenti funzioni :
+
+1.	Stampa dati stabilimenti
+2.	Dato il nome di uno stabilimento, visualizzare i suoi dati.
+Effettuare una ricerca approssimata, pulizia della stringa in ingresso
+3.	Visualizzare il nome dello stabilimento più a buon prezzo
+4.	Visualizzare il prezzo medio degli stabilimenti con e senza servizio di ristorazione
+5.	Costruire e visualizzare una tabella STABRIST contenente nome e prezzo degli  stabilimenti che hanno un servizio di ristorazione ordinati per prezzo
+6.	Aggiungere un nuovo stabilimento
+Effettuare il controllo Dell'input e gestire l'input di stringhe con spazi. Il codice dello stabilimento deve essere dato in automatico dal programma
+7.	Cancellare un stabilimento
+Prevedere una procedura per sostituire la riga eliminata
+
+Il programma dovrà presentare un menu di scelta e prima di terminare l'esecuzione salvare tutte le modifiche.
+
+char str[20]
+fgets(str,20,fp)
+fgets(str,20,stdin)
+*/
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -13,28 +34,24 @@ int c=0;
 
 void sistemare(char *stringa);
 void minuscolo(char *stringa);
-void salva();
-void carica();
+void salva(char [N][NMAX],int [N],float [N],char [N]);
+void carica(char [N][NMAX],int [N],float [N],char [N]);
 
 int main (){
-  int a;
-  char b[4];
-  carica();
-  char abba[N];
-  fgets(abba,N,stdin);
-  sistemare(abba);
-  printf("%s\n",abba );
+  int a,ombrelloni[N];
+  char b[4],nome[N][NMAX],ristorante[N];
+  float costo[N];
+  carica(nome,ombrelloni,costo,ristorante);
   do{
-    printf("ancora nulla\n" );
+    printf("inserisci numero cose\n" );
     fgets(b,4,stdin);
     a=atoi(b);
     printf("\n\n");
     switch (a) {
       case 1: printf("boh\n" );break;
-      case 0: salva();break;
+      case 0: salva(nome,ombrelloni,costo,ristorante);break;
       default: printf("\aERRORE INSERIMENTO\n");system("pause");
     }
-    //sistem();
     system("pause");
     system("cls");
   }while(a!=0);
@@ -81,12 +98,33 @@ void minuscolo(char *stringa){
   }
 }
 
-void carica(){
-
+void carica(char nome[N][NMAX],int ombrelloni[N],float costo[N],char ristorante[N]){
+  FILE *file;
+  file = fopen("spiaggia.txt", "r");
+  if (file!=NULL){
+    while (feof(file) == 0 && c==N){
+      fscanf(file,"%100s %d %f %c",nome[c],&ombrelloni[c],&costo[c],&ristorante[c]);
+      c++;
+    }
+  }
+  else{
+    printf("ERRORE\n" );
+  }
+  fclose(file);
 }
 
-void salva(){
-
+void salva(char nome[N][NMAX],int ombrelloni[N],float costo[N],char ristorante[N]){
+  FILE *file;
+  file = fopen("inventario.txt", "w");
+  if (file!=NULL){
+    for (int i=0;i<c;i++){
+      fprintf(file,"%100s %d %f %c",nome[i],ombrelloni[i],costo[i],ristorante[i]);
+    }
+  }
+  else{
+    printf("ERRORE\n" );
+  }
+  fclose(file);
 }
 
 
