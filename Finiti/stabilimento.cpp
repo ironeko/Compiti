@@ -40,8 +40,6 @@ typedef struct {
   int ristorante;
 } stabilimento;
 
-//da fare: guioda per deficiente
-
 void sistemare(char *stringa);
 void minuscolo(char *stringa);
 void pulito (char *stringa);
