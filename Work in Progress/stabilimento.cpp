@@ -50,11 +50,9 @@ void cancellaStabilimento(stabilimento[]);
 void stampaStabilimento(stabilimento);
 void stampaStabilimenti(stabilimento[]);
 void stampaPrezzoMinimo(stabilimento[]);
-
+void stampaPrezzoMedio(stabilimento[]);
 void carica(stabilimento[]);
 void salva(stabilimento[]);
-
-void stampaPrezzoMedio(stabilimento[]);
 
 int main() {
   stabilimento dati[NS];
@@ -62,7 +60,7 @@ int main() {
   char b[4];
   carica(dati);
   do {
-    printf("\n   Stabilimenti Balneari\n1) Stampa stabilimenti\n2) Ricerca stabilimento\n3) Stampa prezzo minimo\n4) Stampa prezzi medi \n5) Aggiungi stabilimento \n6) Cancella stabilimento \n0) Esci\n\nInput:");
+    printf("   Stabilimenti Balneari\n1) Stampa stabilimenti\n2) Ricerca stabilimento\n3) Stampa prezzo minimo\n4) Stampa prezzi medi \n5) Aggiungi stabilimento \n6) Cancella stabilimento \n0) Esci\n\nInput:");
     fgets(b,4,stdin);
     pulito(b);
     a=atoi(b);
@@ -282,36 +280,34 @@ void stampaPrezzoMedio(stabilimento dati[]) {
 }
 
 void carica(stabilimento dati[]) {
-  FILE *file = fopen("inventario.txt", "a");
+  int i=0;
+  char b[4][LS];
+  n=0;
 
+  FILE *file = fopen("inventario.txt", "a");
   fclose(file);
+
   file =fopen("inventario.txt", "r");
 
   if (file == NULL) {
-    printf("Errore di I/O.\n");
+    printf("ERRORE file\n");
     return;
   }
 
-  n = 0;
-  int i = 0;
-  char buffer[4][LS];
-
-  while (fgets(buffer[i % 4], LS, file) != NULL) {
-    buffer[i % 4][strlen(buffer[i % 4])-1] = '\0';
+  while (fgets(b[i % 4], LS, file) != NULL) {
+    b [i%4][strlen (b[i % 4])-1]='\0';
 
     if (++i % 4 == 0) {
-      strcpy(dati[n].nome, buffer[0]);
-      dati[n].ombrelloni = atoi(buffer[1]);
-      dati[n].tariffa = atof(buffer[2]);
-      dati[n].ristorante = atoi(buffer[3]);
+      strcpy(dati[n].nome, b[0]);
+      dati[n].ombrelloni = atoi (b[1]);
+      dati[n].tariffa = atof (b[2]);
+      dati[n].ristorante = atoi (b[3]);
       n++;
     }
   }
-
   if (i / 4 != n) {
     printf("Errore in lettura. Dei dati potrebbero essero corrotti.\n");
   }
-
   fclose(file);
 }
 
@@ -319,11 +315,9 @@ void salva(stabilimento dati[]) {
   FILE *file =fopen("inventario.txt", "w");
 
   if (file == NULL) {
-    printf("Errore di I/O.\n");
+    printf("ERRORE file\n");
     return;
   }
-
-  char buffer[LS];
 
   for (int i=0; i<n; i++) {
     fprintf(file, "%s\n", dati[i].nome);
