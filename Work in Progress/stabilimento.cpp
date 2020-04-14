@@ -29,48 +29,49 @@ fgets(str,20,stdin)
 #include <strings.h>
 #include <ctype.h>
 
-#define NS 100
-#define LS 32
+#define NMAX 100
+#define N 32
 int n=0;
 
 typedef struct {
-  char nome[LS];
+  char nome[N];
   int ombrelloni;
   float tariffa;
   int ristorante;
 } stabilimento;
 
-// cambiare nomi delle costanti e delle funzioni
+//da fare: guioda per deficiente
+
 void sistemare(char *stringa);
 void minuscolo(char *stringa);
 void pulito (char *stringa);
-void aggiungiStabilimento(stabilimento[]);
-void ricercaNome(stabilimento[]);
-void cancellaStabilimento(stabilimento[]);
-void stampaStabilimento(stabilimento);
-void stampaStabilimenti(stabilimento[]);
-void stampaPrezzoMinimo(stabilimento[]);
-void stampaPrezzoMedio(stabilimento[]);
+void aggiungi(stabilimento[]);
+void ricerca(stabilimento[]);
+void cancella(stabilimento[]);
+void printone(stabilimento);
+void printall(stabilimento[]);
+void minimo(stabilimento[]);
+void medio(stabilimento[]);
 void carica(stabilimento[]);
 void salva(stabilimento[]);
 
 int main() {
-  stabilimento dati[NS];
+  stabilimento dati[NMAX];
   int a;
   char b[4];
   carica(dati);
   do {
-    printf("   Stabilimenti Balneari\n1) Stampa stabilimenti\n2) Ricerca stabilimento\n3) Stampa prezzo minimo\n4) Stampa prezzi medi \n5) Aggiungi stabilimento \n6) Cancella stabilimento \n0) Esci\n\nInput:");
+    printf("********Stabilimenti Balneari**********\n1) Stampa stabilimenti\n2) Ricerca stabilimento\n3) Stampa prezzo minimo\n4) Stampa prezzi medi\n5) Aggiungi stabilimento\n6) Cancella stabilimento\n0) Esci\n\nInput:");
     fgets(b,4,stdin);
     pulito(b);
     a=atoi(b);
     switch (a) {
-      case 1: stampaStabilimenti(dati);break;
-      case 2: ricercaNome(dati);break;
-      case 3: stampaPrezzoMinimo(dati);break;
-      case 4: stampaPrezzoMedio(dati);break;
-      case 5: aggiungiStabilimento(dati);break;
-      case 6: cancellaStabilimento(dati);break;
+      case 1: printall(dati);break;
+      case 2: ricerca(dati);break;
+      case 3: minimo(dati);break;
+      case 4: medio(dati);break;
+      case 5: aggiungi(dati);break;
+      case 6: cancella(dati);break;
       case 0: break;
       default: printf("\aERRORE INSERIMENTO\n");
     }
@@ -87,9 +88,9 @@ void pulito(char *stringa){
 }
 
 void sistemare(char *stringa){
-  char app[LS];
+  char app[N];
   int b=0,a=0;
-  for (int i=0;i<LS;i++){
+  for (int i=0;i<N;i++){
     if (stringa[i]==' ' && a==0){
       a=0;
     }
@@ -100,7 +101,7 @@ void sistemare(char *stringa){
     }
   }
   strcpy(stringa,app);
-  for (int i=0;i<LS;i++){
+  for (int i=0;i<N;i++){
     app[i]='\0';
   }
   b=strlen(stringa);
@@ -119,33 +120,33 @@ void sistemare(char *stringa){
 }
 
 void minuscolo(char *stringa){
-  for (int i=0;i<LS;i++){
+  for (int i=0;i<N;i++){
     if (stringa[i]>=65 && stringa[i]<=90){
       stringa[i]=tolower(stringa[i]);
     }
   }
 }
 
-void aggiungiStabilimento(stabilimento dati[]) {
-  if (n==NS) {
+void aggiungi(stabilimento dati[]) {
+  if (n==NMAX) {
     printf("Spazio esaurito.\n");
     return;
   }
-  char b[LS];
+  char b[N];
   printf("inserire nome stabilimento:\t" );
-  fgets(b,LS,stdin);
+  fgets(b,N,stdin);
   pulito(b);
   strcpy(dati[n].nome, b);
   printf("inserire numero di ombrelloni:\t");
-  fgets(b,LS,stdin);
+  fgets(b,N,stdin);
   pulito(b);
   dati[n].ombrelloni = atoi(b);
   printf("inserire la tariffa giornaliera:\t");
-  fgets(b,LS,stdin);
+  fgets(b,N,stdin);
   pulito(b);
   dati[n].tariffa = atof(b);
   printf("Servizio ristorante? \nrispondi con S o N:\t");
-  fgets(b,LS,stdin);
+  fgets(b,N,stdin);
   pulito(b);
   if (b[0] == 's' || b[0] == 'S'){
     dati[n].ristorante = 1;
@@ -157,33 +158,33 @@ void aggiungiStabilimento(stabilimento dati[]) {
   printf("Stabilimento aggiunto.\n");
 }
 
-void ricercaNome(stabilimento dati[]) {
+void ricerca(stabilimento dati[]) {
   if (n==0) {
     printf("Nessuno stabilimento inserito\n");
     return;
   }
-  char b[LS];
+  char b[N];
   printf("inserire nome stabilimento:\t" );
-  fgets(b,LS,stdin);
+  fgets(b,N,stdin);
   pulito(b);
   printf("stabilimenti trovati:\n");
   for (int i=0; i<n; i++) {
     if (strstr(dati[i].nome, b) != NULL) {
-      stampaStabilimento(dati[i]);
+      printone(dati[i]);
     }
   }
 }
 
-void cancellaStabilimento(stabilimento dati[]) {
+void cancella(stabilimento dati[]) {
   if (n==0) {
     printf("Nessuno stabilimento inserito\n");
     return;
   }
-  char b[LS];
+  char b[N];
   int i;
 
   printf("inserire nome stabilimento:\t" );
-  fgets(b,LS,stdin);
+  fgets(b,N,stdin);
   pulito(b);
   for (i=0; i<n; i++) {
     if (strcasecmp(dati[i].nome, b)==0){
@@ -203,8 +204,8 @@ void cancellaStabilimento(stabilimento dati[]) {
   }
 }
 
-void stampaStabilimento(stabilimento dati) {
-  printf("%-*s%-12d%-12.2f", LS, dati.nome, dati.ombrelloni, dati.tariffa);
+void printone(stabilimento dati) {
+  printf("%-*s%-12d%-12.2f", N, dati.nome, dati.ombrelloni, dati.tariffa);
   if (dati.ristorante==1){
     printf("%-12s\n","Si");
   }
@@ -213,35 +214,35 @@ void stampaStabilimento(stabilimento dati) {
   }
 }
 
-void stampaStabilimenti(stabilimento dati[]) {
+void printall(stabilimento dati[]) {
   if (n==0) {
     printf("Nessuno stabilimento inserito\n");
     return;
   }
   int ris=0;
-  char b[LS];
+  char b[N];
 
   printf("controllare l'esistenza del ristorante? (\"S\" o \"N\"):\t");
-  fgets(b,LS,stdin);
+  fgets(b,N,stdin);
   pulito(b);
   if (b[0]=='s'||b[0]=='S'){
     ris = 1;
   }
-  printf("\n%-*s%-12s%-12s%-12s\n", LS, "Nome", "Ombrelloni", "Tariffa", "Ristorante");
+  printf("\n%-*s%-12s%-12s%-12s\n", N, "Nome", "Ombrelloni", "Tariffa", "Ristorante");
 
   for (int i=0; i<n; i++) {
     if (ris==1) {
       if (dati[i].ristorante==1){
-        stampaStabilimento(dati[i]);
+        printone(dati[i]);
       }
     }
     else{
-      stampaStabilimento(dati[i]);
+      printone(dati[i]);
     }
   }
 }
 
-void stampaPrezzoMinimo(stabilimento dati[]) {
+void minimo(stabilimento dati[]) {
   float min = 0;
   int mI = 0;
 
@@ -257,10 +258,10 @@ void stampaPrezzoMinimo(stabilimento dati[]) {
     }
   }
   printf("Stabilimento con la tariffa minore: \n");
-  stampaStabilimento(dati[mI]);
+  printone(dati[mI]);
 }
 
-void stampaPrezzoMedio(stabilimento dati[]) {
+void medio(stabilimento dati[]) {
   float sRis=0,s=0;
   int contRis=0;
 
@@ -281,7 +282,7 @@ void stampaPrezzoMedio(stabilimento dati[]) {
 
 void carica(stabilimento dati[]) {
   int i=0;
-  char b[4][LS];
+  char b[4][N];
   n=0;
 
   FILE *file = fopen("inventario.txt", "a");
@@ -294,7 +295,7 @@ void carica(stabilimento dati[]) {
     return;
   }
 
-  while (fgets(b[i % 4], LS, file) != NULL) {
+  while (fgets(b[i % 4], N, file) != NULL) {
     b [i%4][strlen (b[i % 4])-1]='\0';
 
     if (++i % 4 == 0) {
