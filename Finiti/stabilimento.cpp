@@ -30,13 +30,13 @@ fgets(str,20,stdin)
 #include <ctype.h>
 
 #define NMAX 100
-#define N 32
+#define N 20
 int n=0;
 
 typedef struct {
   char nome[N];
   int ombrelloni;
-  float tariffa;
+  float costo;
   int ristorante;
 } stabilimento;
 
@@ -141,10 +141,10 @@ void aggiungi(stabilimento dati[]) {
   fgets(b,N,stdin);
   pulito(b);
   dati[n].ombrelloni = atoi(b);
-  printf("inserire la tariffa giornaliera:\t");
+  printf("inserire la costo giornaliera:\t");
   fgets(b,N,stdin);
   pulito(b);
-  dati[n].tariffa = atof(b);
+  dati[n].costo = atof(b);
   printf("Servizio ristorante? \nrispondi con S o N:\t");
   fgets(b,N,stdin);
   pulito(b);
@@ -205,7 +205,7 @@ void cancella(stabilimento dati[]) {
 }
 
 void printone(stabilimento dati) {
-  printf("%-*s%-12d%-12.2f", N, dati.nome, dati.ombrelloni, dati.tariffa);
+  printf("%-*s%-12d%-12.2f", N, dati.nome, dati.ombrelloni, dati.costo);
   if (dati.ristorante==1){
     printf("%-12s\n","Si");
   }
@@ -222,13 +222,13 @@ void printall(stabilimento dati[]) {
   int ris=0;
   char b[N];
 
-  printf("controllare l'esistenza del ristorante? (\"S\" o \"N\"):\t");
+  printf("controllare l'esistenza del ristorante? (\"Si\" o \"No\"):\t");
   fgets(b,N,stdin);
   pulito(b);
   if (b[0]=='s'||b[0]=='S'){
     ris = 1;
   }
-  printf("\n%-*s%-12s%-12s%-12s\n", N, "Nome", "Ombrelloni", "Tariffa", "Ristorante");
+  printf("\n%-*s%-12s%-12s%-12s\n", N, "Nome", "Ombrelloni", "costo", "Ristorante");
 
   for (int i=0; i<n; i++) {
     if (ris==1) {
@@ -252,12 +252,12 @@ void minimo(stabilimento dati[]) {
   }
 
   for (int i=0; i<n; i++) {
-    if (min > dati[i].tariffa) {
-      min = dati[i].tariffa;
+    if (min > dati[i].costo) {
+      min = dati[i].costo;
       mI = i;
     }
   }
-  printf("Stabilimento con la tariffa minore: \n");
+  printf("Stabilimento con la costo minore: \n");
   printone(dati[mI]);
 }
 
@@ -270,14 +270,14 @@ void medio(stabilimento dati[]) {
     return;
   }
   for (int i=0; i<n; i++) {
-    s+=dati[i].tariffa;
+    s+=dati[i].costo;
     if (dati[i].ristorante == 1) {
-      sRis+= dati[i].tariffa;
+      sRis+= dati[i].costo;
       contRis++;
     }
   }
 
-  printf("costo medio: %.2f\ncosto medio senza ristorante: %.2f\nTariffa media con ristorante: %.2f\n",s/n,(s-sRis)/(n-contRis),sRis/contRis);
+  printf("costo medio: %.2f\ncosto medio senza ristorante: %.2f\ncosto medio con ristorante: %.2f\n",s/n,(s-sRis)/(n-contRis),sRis/contRis);
 }
 
 void carica(stabilimento dati[]) {
@@ -301,7 +301,7 @@ void carica(stabilimento dati[]) {
     if (++i % 4 == 0) {
       strcpy(dati[n].nome, b[0]);
       dati[n].ombrelloni = atoi (b[1]);
-      dati[n].tariffa = atof (b[2]);
+      dati[n].costo = atof (b[2]);
       dati[n].ristorante = atoi (b[3]);
       n++;
     }
@@ -323,7 +323,7 @@ void salva(stabilimento dati[]) {
   for (int i=0; i<n; i++) {
     fprintf(file, "%s\n", dati[i].nome);
     fprintf(file, "%d\n", dati[i].ombrelloni);
-    fprintf(file, "%f\n", dati[i].tariffa);
+    fprintf(file, "%f\n", dati[i].costo);
     fprintf(file, "%d\n", dati[i].ristorante);
   }
 
