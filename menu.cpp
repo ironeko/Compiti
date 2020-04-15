@@ -31,19 +31,23 @@ int main(){
 
       ch1 = getch();
       ch2 = 0;
-      if (ch1 == 0xE0) {
-        ch2 = getch();
-        switch(ch2){
-          case 72: now--; break;//up
-          case 80: now++; break;//down
-        };
+      switch (ch1){
+        case 0xE0:
+          ch2 = getch();
+          switch(ch2){
+            case 72: now--; break;//up
+            case 80: now++; break;//down
+          };break;
+        case 13:finish++;break;//enter
+        case 119:now--;break;//w
+        case 115:now++;break;//s
+        default:printf("key pressed: %d %c\n", ch1, ch2);//error case
       }
-      else if(ch1==13)finish++;//enter
-      else printf("key pressed: %d %c\n", ch1, ch2);//in case of error
       if (now<0) now=0;
       if (now>MAX-1) now=MAX-1;
       system ("cls");
     }while(finish!=1);
+
   printf("output number %d\n",now );
   system("pause");
   return 0;
