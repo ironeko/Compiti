@@ -30,7 +30,7 @@ in the code
 #include <stdbool.h>
 #include <windows.h>
 #include <time.h>
-#include "vts-nf.c"
+#include "../Librerie/vts-nf.c"
 
 const int L=21,C=20;//21x20
 int point=0,map[L][C],map1[L][C];

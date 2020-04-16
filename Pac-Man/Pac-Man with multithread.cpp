@@ -34,7 +34,7 @@ in the code
 #include <pthread.h>
 #include <fstream>
 #include <iostream>
-#include "vts-nf.c"
+#include "../Librerie/vts-nf.c"
 using namespace std;
 
 const int L=21,C=20;//21x20

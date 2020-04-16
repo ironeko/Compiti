@@ -31,6 +31,7 @@ fgets(str,20,stdin)
 #include <conio.h>
 #include <windows.h>
 #include <time.h>
+#include "../Librerie/menu.c"
 
 #define NMAX 100
 #define N 20
@@ -57,72 +58,32 @@ void carica(stabilimento[]);
 void salva(stabilimento[]);
 
 int main() {
-  HANDLE hConsole;
-  hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
   stabilimento dati[NMAX];
-  int ch1, ch2, max=7,now=0,finish=0;
   carica(dati);
-  do {
-      do{
-        SetConsoleTextAttribute(hConsole, 15);
-        printf("********Stabilimenti Balneari**********\n\n*/*/*/Usa le frecce direzionali per muoverti nel menu'*/*/*/\n\n" );
-        char menu [max][100];
-        strcpy(menu [0],"1) Stampa stabilimenti");
-        strcpy(menu [1],"2) Ricerca stabilimento");
-        strcpy(menu [2],"3) Stampa prezzo minimo");
-        strcpy(menu [3],"4) Stampa prezzi medi");
-        strcpy(menu [4],"5) Aggiungi stabilimento");
-        strcpy(menu [5],"6) Cancella stabilimento");
-        strcpy(menu [6],"ESCI");
-
-        for (int i=0;i<max;i++){
-          if (i==now){
-            SetConsoleTextAttribute(hConsole, 12);
-            printf("-> ");
-          }
-          else{
-            SetConsoleTextAttribute(hConsole, 15);
-          }
-          printf("%s\n",menu[i]);
-        }
-
-        ch1 = getch();
-        ch2 = 0;
-        if (ch1 == 0xE0) {
-          ch2 = getch();
-          switch(ch2){
-            case 72: now--; break;
-            case 80: now++; break;
-          };
-        }
-        else if(ch1==13){
-          finish++;
-        }
-        else{
-          printf("Errore premuto: %d %c\n", ch1, ch2);
-        }
-        if (now<0){
-          now=0;
-        }
-        if (now>max-1){
-          now=max-1;
-        }
-        system ("cls");
-      }while(finish!=1);
-      switch (now) {
-        case 0: printall(dati);break;
-        case 1: ricerca(dati);break;
-        case 2: minimo(dati);break;
-        case 3: medio(dati);break;
-        case 4: aggiungi(dati);break;
-        case 5: cancella(dati);break;
-        case 6: break;
-        default: printf("\aERRORE INSERIMENTO\n");
-      }
+  char *pass[N]={'\0'};
+  pass[0]="1) Stampa stabilimenti";
+  pass[1]="2) Ricerca stabilimento";
+  pass[2]="3) Stampa prezzo minimo";
+  pass[3]="4) Stampa prezzi medi";
+  pass[4]="5) Aggiungi stabilimento";
+  pass[5]="6) Cancella stabilimento";
+  pass[6]="ESCI";
+  int now=0;
+  do{
+    now=menuu("********Stabilimenti Balneari**********\n\n*/*/*/Usa le frecce direzionali per muoverti nel menu'*/*/*/\n\n",7,pass);
+    switch (now) {
+      case 0: printall(dati);break;
+      case 1: ricerca(dati);break;
+      case 2: minimo(dati);break;
+      case 3: medio(dati);break;
+      case 4: aggiungi(dati);break;
+      case 5: cancella(dati);break;
+      case 6: break;
+      default: printf("\aERRORE INSERIMENTO\n");
+    }
     salva(dati);
     system("pause");
     system("cls");
-    finish--;
   } while (now != 6);
 }
 
