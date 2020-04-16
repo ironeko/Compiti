@@ -70,7 +70,7 @@ int main() {
   pass[6]="ESCI";
   int now=0;
   do{
-    now=menuu("********Stabilimenti Balneari**********\n\n*/*/*/Usa le frecce direzionali per muoverti nel menu'*/*/*/\n\n",7,pass);
+    now=create_menu("********Stabilimenti Balneari**********\n\n*/*/*/Usa le frecce direzionali per muoverti nel menu'*/*/*/\n\n",7,pass);
     switch (now) {
       case 0: printall(dati);break;
       case 1: ricerca(dati);break;

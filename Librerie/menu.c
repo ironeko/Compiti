@@ -14,11 +14,12 @@ int main (){
 
 Problems:
 - warning: deprecated conversion from string constant to 'char*'
-- the function name suck
 - multi platform
+- not use cls
 
 */
-int menuu(char *caption,int MAX,char **menu){
+
+int create_menu(char *caption,int MAX,char **menu){
   HANDLE hConsole;
   hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
   int ch1, ch2,now=0,finish=0; //ch1 and e are use for getch(), now is the select line and finish is a boolean value for the loop
