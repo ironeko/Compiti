@@ -60,7 +60,7 @@ void salva(stabilimento[]);
 int main() {
   stabilimento dati[NMAX];
   carica(dati);
-  char *pass[N]={'\0'};
+  char *pass[N];
   pass[0]="1) Stampa stabilimenti";
   pass[1]="2) Ricerca stabilimento";
   pass[2]="3) Stampa prezzo minimo";

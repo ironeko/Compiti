@@ -22,7 +22,7 @@ Fatto:
 #include <unistd.h>
 #include <pthread.h>
 #include <bits/stdc++.h>
-#include "vts-nf.c"
+#include "../Librerie/vts-nf.c"
 using namespace std;
 
 #define ROW 21

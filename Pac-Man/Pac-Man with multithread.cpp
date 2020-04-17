@@ -35,6 +35,8 @@ in the code
 #include <fstream>
 #include <iostream>
 #include "../Librerie/vts-nf.c"
+
+
 using namespace std;
 
 const int L=21,C=20;//21x20
@@ -234,7 +236,7 @@ void load (){
 }
 
 void *win (void *vargp){
-  /*int c=0;
+  int c=0;
   for (int i=0;i<L;i++){
     for (int j=0;j<C;j++){
       if (map[i][j]==2){
@@ -245,7 +247,7 @@ void *win (void *vargp){
   }
   if (c==0){
     v=1;
-  }*/
+  }
   for (int i=0;i<5;i--){
   }
   return 0;
@@ -253,7 +255,7 @@ void *win (void *vargp){
 
 void *mus (void *vargp){
   char audiofile_char[1];
-  fstream fp;
+  std::fstream fp;
   fp.open(audiofile_char, ios::in);
   PlaySound("ciao.wav", NULL, SND_SYNC);
   fp.close();
