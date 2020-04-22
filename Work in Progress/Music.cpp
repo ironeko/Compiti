@@ -1,6 +1,6 @@
 #include<iostream>
 #include<windows.h>    //used for PlaySound function
-#include<fstream>    //used for file handling
+#include<fstream>      //used for file handling
 using namespace std;
 int main()
 {
