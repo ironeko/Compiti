@@ -1,4 +1,4 @@
-/*beta 0.3  ~ Matteo Filardi ~
+/*beta 0.3  ~ Ironeko ~
 
 example:
 

@@ -49,7 +49,7 @@ void carica_matrice (){
 void stampa_matrice (){
   for (int i=0;i<r;i++){
     for (int j=0;j<c;j++) {
-      printf("%3sd ",mat[i][j]);
+      printf("%3d ",mat[i][j]);
     }
     printf("\n");
   }
