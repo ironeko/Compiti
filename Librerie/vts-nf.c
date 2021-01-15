@@ -2,6 +2,7 @@
  * VTS - Virtual Terminal Sequences
  * Full implementation of https://docs.microsoft.com/en-us/windows/console/console-virtual-terminal-sequences.
  * Some CSI / OCS are still missing.
+ Java best character
  */
 
 #ifndef VTS
