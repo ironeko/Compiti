@@ -1,7 +1,9 @@
-// gcc Fork.c
-// ./a.out 5
-// 5 = numero di figli
-
+/* 
+Programma per la creazione di processi multipli sutilizzando fork(), dando in input il numero di figli restituerà informazioni per ogniuno di essi
+gcc Fork.c
+./a.out 5
+5 = numero di figli
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
